@@ -1,4 +1,4 @@
-package com.FacturacionPrimeraEntregaSnider.Exceptions;
+package com.ClienteApiRestSnider.Exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

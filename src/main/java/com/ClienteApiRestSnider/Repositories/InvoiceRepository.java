@@ -1,6 +1,6 @@
-package com.FacturacionPrimeraEntregaSnider.Repositories;
+package com.ClienteApiRestSnider.Repositories;
 
-import com.FacturacionPrimeraEntregaSnider.Entities.Invoice;
+import com.ClienteApiRestSnider.Entities.Invoice;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

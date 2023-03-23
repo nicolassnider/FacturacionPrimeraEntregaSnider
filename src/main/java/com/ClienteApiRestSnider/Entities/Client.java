@@ -1,4 +1,4 @@
-package com.FacturacionPrimeraEntregaSnider.Entities;
+package com.ClienteApiRestSnider.Entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,12 +12,6 @@ import lombok.Data;
 @Entity
 @Table(name = "clients")
 public class Client {
-	// constructor vacío
-	public Client() {
-		super();
-	}
-
-	// Columnas
 	@Id // PK
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -30,5 +24,5 @@ public class Client {
 	private String LastName;
 
 	@Column(name = "docnumber")
-	private String DocNumber;
+	private String docnumber;
 }

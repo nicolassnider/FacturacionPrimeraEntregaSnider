@@ -1,4 +1,4 @@
-package com.FacturacionPrimeraEntregaSnider.Entities;
+package com.ClienteApiRestSnider.Entities;
 
 import java.util.Date;
 

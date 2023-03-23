@@ -1,4 +1,4 @@
-package com.FacturacionPrimeraEntregaSnider.Exceptions;
+package com.ClienteApiRestSnider.Exceptions;
 
 public class ClientAlreadyExistsException extends Exception{
     public ClientAlreadyExistsException(String message) {

@@ -1,4 +1,4 @@
-package com.FacturacionPrimeraEntregaSnider.Entities;
+package com.ClienteApiRestSnider.Entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

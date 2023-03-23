@@ -1,4 +1,4 @@
-package com.FacturacionPrimeraEntregaSnider.Exceptions;
+package com.ClienteApiRestSnider.Exceptions;
 
 public class ClientNotFoundException extends Exception{
     public ClientNotFoundException(String message) {
