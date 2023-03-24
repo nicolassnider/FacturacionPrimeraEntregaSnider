@@ -28,7 +28,7 @@ public class Invoice {
 
 	@ManyToOne
 	@JoinColumn(name = "client_id")
-	private Client ClientId;
+	private ClientModel ClientId;
 
 	// getters & setters
 	public Long getId() {
@@ -55,11 +55,11 @@ public class Invoice {
 		Total = total;
 	}
 
-	public Client getClientId() {
+	public ClientModel getClientId() {
 		return ClientId;
 	}
 
-	public void setClientId(Client clientId) {
+	public void setClientId(ClientModel clientId) {
 		ClientId = clientId;
 	}
 
