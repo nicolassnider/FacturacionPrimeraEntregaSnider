@@ -1,25 +1,24 @@
 package com.ClienteApiRestSnider.Controllers;
 
-import com.ClienteApiRestSnider.Entities.ClientModel;
-import com.ClienteApiRestSnider.Services.ClientService;
+import com.ClienteApiRestSnider.Entities.InvoiceModel;
+
+import com.ClienteApiRestSnider.Services.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping(path = "api/clients")
-public class ClientController {
+public class InvoiceController implements IController {
 	@Autowired
-	private ClientService service;
+	private InvoiceService service;
 
 	@PostMapping(path = "/")
-	public ResponseEntity create(@RequestBody ClientModel model) throws Exception {
+	public ResponseEntity create(@RequestBody InvoiceModel model) throws Exception {
 		return new ResponseEntity<>(this.service.create(model), HttpStatus.CREATED);
 	}
 
 	@PutMapping(path = "/{id}")
-	public ResponseEntity update(ClientModel model, Long id) throws Throwable, Exception {
+	public ResponseEntity update(InvoiceModel model, Long id) throws Throwable, Exception {
 		return new ResponseEntity<>(this.service.update(model, id), HttpStatus.CREATED);
 	}
 
@@ -36,11 +35,6 @@ public class ClientController {
 	@GetMapping(path = "/")
 	public ResponseEntity findAll() {
 		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
-	}
-
-	@GetMapping(path = "/{docNumber}")
-	public ResponseEntity getByDocNumber(@PathVariable String docNumber) throws Exception {
-		return new ResponseEntity<>(this.service.findByDocNumber(docNumber), HttpStatus.OK);
 	}
 
 }

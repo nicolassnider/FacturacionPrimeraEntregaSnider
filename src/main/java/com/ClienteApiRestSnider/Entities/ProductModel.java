@@ -8,29 +8,24 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Data
 @Entity
-@Table(name = "clients")
-public class ClientModel {
+@Table(name = "products")
+public class ProductModel implements IModel<ProductModel> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-
-	@Column(name = "name")
-	private String name;
-
-	@Column(name = "lastname")
-	private String lastName;
-
-	@Column(name = "docnumber")
-	private String docNumber;
+	@Column(name = "description")
+	private String description;
+	@Column(name = "code")
+	private String code;
+	@Column(name = "stock")
+	private int stock;
+	@Column(name = "price")
+	private double price;
 
 	@Column(name = "active")
-	private boolean active = true;
+	private boolean active;
 
-	@Column(name = "birth")
-	private LocalDate birth;
 }
