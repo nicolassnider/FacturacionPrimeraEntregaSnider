@@ -14,10 +14,10 @@ public class ClientController {
 	private ClientService service;
 
 	@PostMapping(path = "/")
-	public ResponseEntity create(@RequestBody ClientModel model) throws Exception {
+	public ResponseEntity<Object> create(@RequestBody ClientModel model) throws Exception {
 		var createdEntity = this.service.create(model);
 		if (createdEntity == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		return new ResponseEntity<>(createdEntity, HttpStatus.CREATED);
+		return new ResponseEntity<Object>(createdEntity, HttpStatus.CREATED);
 	}
 
 	@PutMapping(path = "/{id}")

@@ -1,6 +1,5 @@
 package com.ClienteApiRestSnider.Services;
 
-import com.ClienteApiRestSnider.Entities.ClientModel;
 import com.ClienteApiRestSnider.Entities.ProductModel;
 import com.ClienteApiRestSnider.Exceptions.EntityAlreadyExistsException;
 import com.ClienteApiRestSnider.Exceptions.EntityNotFoundException;
