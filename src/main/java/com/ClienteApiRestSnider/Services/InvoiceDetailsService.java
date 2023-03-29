@@ -69,12 +69,6 @@ public class InvoiceDetailsService{
 		log.info("La entidad fue encontrada");
 	}
 
-	private void entityIsPresent(Optional<InvoiceDetailsModel> entityOp) throws EntityAlreadyExistsException {
-		if (entityOp.isPresent()) {
-			log.info("La entidad que intenta buscar ya existe en la base de datos : ");
-			throw new EntityAlreadyExistsException("La entidad que intenta agregar ya existe en la base de datos");
-		}
-		log.info("La entidad no se encontró");
-	}
+	
 
 }

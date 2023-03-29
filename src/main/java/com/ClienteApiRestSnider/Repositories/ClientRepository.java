@@ -2,7 +2,6 @@ package com.ClienteApiRestSnider.Repositories;
 
 import com.ClienteApiRestSnider.Entities.ClientModel;
 
-import com.ClienteApiRestSnider.Entities.ProductModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
