@@ -3,6 +3,7 @@ package com.ClienteApiRestSnider.Entities;
 import java.time.LocalDate;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Data
@@ -17,6 +18,7 @@ public class InvoiceModel {
 	@Column(name = "created_at")
 	private LocalDate createdAt;
 
+	@Positive(message = "El total debe ser mayor a 0")
 	@Column(name = "total")
 	private double total;
 

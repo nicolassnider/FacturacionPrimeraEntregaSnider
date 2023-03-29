@@ -71,31 +71,31 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		ClientModel client = new ClientModel();
 		client.setName("Juan");
 		client.setLastName("Perez");
-		client.setDocNumber("12345678");
+		client.setDocNumber("1234567890");
 		clients.add(client);
 
 		ClientModel client2 = new ClientModel();
 		client2.setName("Pedro");
 		client2.setLastName("Gomez");
-		client2.setDocNumber("12345679");
+		client2.setDocNumber("1234567891");
 		clients.add(client2);
 
 		ClientModel client3 = new ClientModel();
 		client3.setName("Maria");
 		client3.setLastName("Gonzalez");
-		client3.setDocNumber("12345680");
+		client3.setDocNumber("1234567892");
 		clients.add(client3);
 
 		ClientModel client4 = new ClientModel();
 		client4.setName("Jose");
 		client4.setLastName("Lopez");
-		client4.setDocNumber("12345681");
+		client4.setDocNumber("1234567893");
 		clients.add(client4);
 
 		ClientModel client5 = new ClientModel();
 		client5.setName("Ana");
 		client5.setLastName("Martinez");
-		client5.setDocNumber("12345682");
+		client5.setDocNumber("1234567894");
 		clients.add(client5);
 
 		Insert(clientRepository, clients);
@@ -106,63 +106,63 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 
 		ProductModel product = new ProductModel();
 		product.setDescription("Gaseosa cola 1lt");
-		product.setCode("12345678");
+		product.setCode("123456");
 		product.setStock(10);
 		product.setPrice(100.00);
 		products.add(product);
 
 		ProductModel product2 = new ProductModel();
 		product2.setDescription("Gaseosa lima 1lt");
-		product2.setCode("12345679");
+		product2.setCode("123457");
 		product2.setStock(15);
 		product2.setPrice(115.00);
 		products.add(product2);
 
 		ProductModel product3 = new ProductModel();
 		product3.setDescription("Gaseosa pomelo 1lt");
-		product3.setCode("12345680");
+		product3.setCode("123458");
 		product3.setStock(20);
 		product3.setPrice(100.50);
 		products.add(product3);
 
 		ProductModel product4 = new ProductModel();
 		product4.setDescription("Gaseosa cola 1lt");
-		product4.setCode("12345681");
+		product4.setCode("123459");
 		product4.setStock(10);
 		product4.setPrice(100.00);
 		products.add(product4);
 
 		ProductModel product5 = new ProductModel();
 		product5.setDescription("Papas fritas 1kg");
-		product5.setCode("12345510");
+		product5.setCode("123460");
 		product5.setStock(100);
 		product5.setPrice(90.00);
 		products.add(product5);
 
 		ProductModel product6 = new ProductModel();
 		product6.setDescription("Palitos salados 500g");
-		product6.setCode("12345511");
+		product6.setCode("123461");
 		product6.setStock(50);
 		product6.setPrice(30.15);
 		products.add(product6);
 
 		ProductModel product7 = new ProductModel();
 		product7.setDescription("Dulce de leche 500g");
-		product7.setCode("22345650");
+		product7.setCode("123462");
 		product7.setStock(11);
 		product7.setPrice(80.00);
 		products.add(product7);
 
 		ProductModel product8 = new ProductModel();
 		product8.setDescription("Manteca 500g");
-		product8.setCode("22345651");
+		product8.setCode("123463");
 		product8.setStock(15);
 		product8.setPrice(60.00);
 		products.add(product8);
 
 		ProductModel product9 = new ProductModel();
 		product9.setDescription("Dulce de membrillo 1k");
-		product9.setCode("22345652");
+		product9.setCode("123464");
 		product9.setStock(13);
 		product9.setPrice(75.00);
 		products.add(product9);
