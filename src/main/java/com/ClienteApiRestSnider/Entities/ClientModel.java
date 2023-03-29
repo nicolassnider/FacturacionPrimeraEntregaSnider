@@ -30,7 +30,4 @@ public class ClientModel {
 
 	@Column(name = "active")
 	private boolean active = true;
-
-	@Column(name = "birth")
-	private LocalDate birth;
 }

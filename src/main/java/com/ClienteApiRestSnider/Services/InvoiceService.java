@@ -5,21 +5,34 @@ import com.ClienteApiRestSnider.Entities.InvoiceModel;
 import com.ClienteApiRestSnider.Entities.ProductModel;
 import com.ClienteApiRestSnider.Exceptions.EntityAlreadyExistsException;
 import com.ClienteApiRestSnider.Exceptions.EntityNotFoundException;
+import com.ClienteApiRestSnider.Repositories.ClientRepository;
 import com.ClienteApiRestSnider.Repositories.InvoiceRepository;
 import com.ClienteApiRestSnider.Repositories.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-public class InvoiceService implements IService<InvoiceModel> {
+@Service
+public class InvoiceService{
 	@Autowired
 	private InvoiceRepository repository;
+	@Autowired
+	private ProductRepository productRepository;
+	@Autowired
+	private ClientRepository clientRepository;
 
 	public InvoiceModel create(InvoiceModel model) throws Exception {
+		LocalDate date = LocalDate.now();
+		model.setCreatedAt(date);
+		var client = clientRepository.findById(model.getClientId().getId());
+
+		model.setClientId(client.get());
+		model.setCreatedAt(date);
 		return this.repository.save(model);
 	}
 

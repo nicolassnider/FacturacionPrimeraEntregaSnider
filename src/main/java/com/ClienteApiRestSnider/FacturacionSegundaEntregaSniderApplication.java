@@ -77,25 +77,25 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		ClientModel client2 = new ClientModel();
 		client2.setName("Pedro");
 		client2.setLastName("Gomez");
-		client2.setDocNumber("87654321");
+		client2.setDocNumber("12345679");
 		clients.add(client2);
 
 		ClientModel client3 = new ClientModel();
 		client3.setName("Maria");
 		client3.setLastName("Gonzalez");
-		client3.setDocNumber("12345678");
+		client3.setDocNumber("12345680");
 		clients.add(client3);
 
 		ClientModel client4 = new ClientModel();
 		client4.setName("Jose");
 		client4.setLastName("Lopez");
-		client4.setDocNumber("87654321");
+		client4.setDocNumber("12345681");
 		clients.add(client4);
 
 		ClientModel client5 = new ClientModel();
 		client5.setName("Ana");
 		client5.setLastName("Martinez");
-		client5.setDocNumber("12345678");
+		client5.setDocNumber("12345682");
 		clients.add(client5);
 
 		Insert(clientRepository, clients);

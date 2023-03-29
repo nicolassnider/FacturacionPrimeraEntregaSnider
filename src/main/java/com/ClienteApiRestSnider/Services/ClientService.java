@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class ClientService implements IService<ClientModel> {
+public class ClientService{
 	@Autowired
 	private ClientRepository repository;
 
@@ -25,11 +25,8 @@ public class ClientService implements IService<ClientModel> {
 	}
 
 	public ClientModel update(ClientModel model, Long id) throws Exception {
-
 		invalidId(id);
-
 		Optional<ClientModel> entityOp = this.repository.findById(id);
-
 		entityIsEmpty(entityOp);
 		ClientModel entityDB = entityOp.get();
 		entityDB.setName(model.getName());
@@ -42,7 +39,6 @@ public class ClientService implements IService<ClientModel> {
 	public ClientModel delete(Long id) throws Exception {
 		invalidId(id);
 		Optional<ClientModel> entityOp = this.repository.findById(id);
-
 		entityIsEmpty(entityOp);
 		ClientModel entityDB = entityOp.get();
 		entityDB.setActive(false);
