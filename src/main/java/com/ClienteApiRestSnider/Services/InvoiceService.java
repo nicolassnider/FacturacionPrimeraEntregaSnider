@@ -6,6 +6,7 @@ import com.ClienteApiRestSnider.Entities.ProductModel;
 import com.ClienteApiRestSnider.Exceptions.EntityAlreadyExistsException;
 import com.ClienteApiRestSnider.Exceptions.EntityNotFoundException;
 import com.ClienteApiRestSnider.Repositories.ClientRepository;
+import com.ClienteApiRestSnider.Repositories.InvoiceDetailsRepository;
 import com.ClienteApiRestSnider.Repositories.InvoiceRepository;
 import com.ClienteApiRestSnider.Repositories.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,8 @@ public class InvoiceService{
 	private ProductRepository productRepository;
 	@Autowired
 	private ClientRepository clientRepository;
+	@Autowired
+	private InvoiceDetailsRepository invoiceDetailsRepository;
 
 	public InvoiceModel create(InvoiceModel model) throws Exception {
 		LocalDate date = LocalDate.now();
@@ -32,8 +35,22 @@ public class InvoiceService{
 		var client = clientRepository.findById(model.getClientId().getId());
 
 		model.setClientId(client.get());
-		model.setCreatedAt(date);
-		return this.repository.save(model);
+		model.getInvoiceDetails().forEach(invoiceDetailsModel -> {
+			var product = productRepository.findById(invoiceDetailsModel.getProductId().getId());
+			var stock = product.get().getStock();
+			var amount = invoiceDetailsModel.getAmoun();
+			if (stock < amount) {
+					throw new RuntimeException("No hay suficiente stock del producto " + product.get().getDescription());
+			}
+			invoiceDetailsModel.setProductId(product.get());
+		});
+		var savedInvoice = repository.save(model);
+		savedInvoice.getInvoiceDetails().forEach(invoiceDetailsModel -> {
+			invoiceDetailsModel.setInvoice(savedInvoice);
+			invoiceDetailsRepository.save(invoiceDetailsModel);
+		});
+
+		return savedInvoice;
 	}
 
 	public InvoiceModel update(InvoiceModel model, Long id) throws Exception {

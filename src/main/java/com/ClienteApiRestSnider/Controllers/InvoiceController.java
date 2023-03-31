@@ -30,7 +30,7 @@ public class InvoiceController{
 	}
 
 	@GetMapping(path = "/{id}")
-	public ResponseEntity findById(Long id) throws Throwable, Exception {
+	public ResponseEntity findById(@PathVariable Long id) throws Throwable, Exception {
 		return new ResponseEntity<>(this.service.findById(id), HttpStatus.OK);
 	}
 

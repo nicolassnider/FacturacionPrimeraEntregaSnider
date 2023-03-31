@@ -1,0 +1,913 @@
+{
+	"info": {
+		"_postman_id": "a3e5f608-3087-40ec-9440-5e80af616bdd",
+		"name": "CoderHouse",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "148107"
+	},
+	"item": [
+		{
+			"name": "CLienteApiRestSnider",
+			"item": [
+				{
+					"name": "postClienteAnios",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"asdaf\",\r\n    \"lastName\":\"fdas\",\r\n    \"birth\":\"1990-01-21\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/client/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"client",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getEdad",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/api/client/1/edad",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"client",
+								"1",
+								"edad"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SegundaEntrega",
+			"item": [
+				{
+					"name": "Client",
+					"item": [
+						{
+							"name": "findById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/client/id/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"client",
+										"id",
+										"1"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "findById",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "/client/id/1",
+											"path": [
+												"client",
+												"id",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 30 Mar 2023 00:04:55 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 1,\n    \"name\": \"Juan\",\n    \"lastName\": \"Perez\",\n    \"docNumber\": \"1234567890\",\n    \"active\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "post",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n\t\"Name\":\"nombre\",\r\n    \"LastName\":\"lastname\",\r\n    \"docnumber\":\"123456789\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/client/",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"client",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "post",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n\r\n\t\"name\":\"nombre\",\r\n    \"lastName\":\"lastname\",\r\n    \"docNumber\":\"999999997\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "/client/",
+											"path": [
+												"client",
+												""
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 30 Mar 2023 00:04:15 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 7,\n    \"name\": \"nombre\",\n    \"lastName\": \"lastname\",\n    \"docNumber\": \"999999997\",\n    \"active\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "findByDocNumber",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/client/docnumber/123456789",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"client",
+										"docnumber",
+										"123456789"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "findByDocNumber",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "/client/docnumber/1234567890",
+											"path": [
+												"client",
+												"docnumber",
+												"1234567890"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 30 Mar 2023 00:06:03 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 1,\n    \"name\": \"Juan\",\n    \"lastName\": \"Perez\",\n    \"docNumber\": \"1234567890\",\n    \"active\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "findAll",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "findAll",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "/client/",
+											"path": [
+												"client",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 30 Mar 2023 00:06:32 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Juan\",\n        \"lastName\": \"Perez\",\n        \"docNumber\": \"1234567890\",\n        \"active\": true\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Pedro\",\n        \"lastName\": \"Gomez\",\n        \"docNumber\": \"1234567891\",\n        \"active\": true\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Maria\",\n        \"lastName\": \"Gonzalez\",\n        \"docNumber\": \"1234567892\",\n        \"active\": true\n    },\n    {\n        \"id\": 4,\n        \"name\": \"Jose\",\n        \"lastName\": \"Lopez\",\n        \"docNumber\": \"1234567893\",\n        \"active\": true\n    },\n    {\n        \"id\": 5,\n        \"name\": \"Ana\",\n        \"lastName\": \"Martinez\",\n        \"docNumber\": \"1234567894\",\n        \"active\": true\n    },\n    {\n        \"id\": 6,\n        \"name\": null,\n        \"lastName\": null,\n        \"docNumber\": null,\n        \"active\": true\n    },\n    {\n        \"id\": 7,\n        \"name\": \"nombre\",\n        \"lastName\": \"lastname\",\n        \"docNumber\": \"999999997\",\n        \"active\": true\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/client/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"client",
+										"1"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "New Request",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "/client/1",
+											"path": [
+												"client",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 30 Mar 2023 00:06:52 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 1,\n    \"name\": \"Juan\",\n    \"lastName\": \"Perez\",\n    \"docNumber\": \"1234567890\",\n    \"active\": false\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Product",
+					"item": [
+						{
+							"name": "findById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/client/id/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"client",
+										"id",
+										"1"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "findById",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "/product/id/1",
+											"path": [
+												"product",
+												"id",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 30 Mar 2023 01:54:42 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 1,\n    \"description\": \"Gaseosa cola 1lt\",\n    \"code\": \"123456\",\n    \"stock\": 10,\n    \"price\": 100,\n    \"active\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "post",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n\t\"Name\":\"nombre\",\r\n    \"LastName\":\"lastname\",\r\n    \"docnumber\":\"123456789\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/client/",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"client",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "post",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": 1,\r\n    \"description\": \"Gaseosa cola 3lt\",\r\n    \"code\": \"999999\",\r\n    \"stock\": 10,\r\n    \"price\": 500.0,\r\n    \"active\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8080/api/product/",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"product",
+												""
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 30 Mar 2023 01:56:02 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 1,\n    \"description\": \"Gaseosa cola 3lt\",\n    \"code\": \"999999\",\n    \"stock\": 10,\n    \"price\": 500,\n    \"active\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "findByCode",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/client/docnumber/123456789",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"client",
+										"docnumber",
+										"123456789"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "findByCode",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": 1,\r\n    \"description\": \"Gaseosa cola 1lt\",\r\n    \"code\": \"123456\",\r\n    \"stock\": 10,\r\n    \"price\": 100.0,\r\n    \"active\": true\r\n}"
+										},
+										"url": {
+											"raw": "/product/code/123456",
+											"path": [
+												"product",
+												"code",
+												"123456"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 30 Mar 2023 02:13:57 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 1,\n    \"description\": \"Gaseosa cola 1lt\",\n    \"code\": \"123456\",\n    \"stock\": 10,\n    \"price\": 100,\n    \"active\": true\n}"
+								}
+							]
+						},
+						{
+							"name": "findAll",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "findAll",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "/product/",
+											"path": [
+												"product",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 30 Mar 2023 01:33:18 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": 1,\n        \"description\": \"Gaseosa cola 1lt\",\n        \"code\": \"123456\",\n        \"stock\": 10,\n        \"price\": 100,\n        \"active\": true\n    },\n    {\n        \"id\": 2,\n        \"description\": \"Gaseosa lima 1lt\",\n        \"code\": \"123457\",\n        \"stock\": 15,\n        \"price\": 115,\n        \"active\": true\n    },\n    {\n        \"id\": 3,\n        \"description\": \"Gaseosa pomelo 1lt\",\n        \"code\": \"123458\",\n        \"stock\": 20,\n        \"price\": 100.5,\n        \"active\": true\n    },\n    {\n        \"id\": 4,\n        \"description\": \"Gaseosa cola 1lt\",\n        \"code\": \"123459\",\n        \"stock\": 10,\n        \"price\": 100,\n        \"active\": true\n    },\n    {\n        \"id\": 5,\n        \"description\": \"Papas fritas 1kg\",\n        \"code\": \"123460\",\n        \"stock\": 100,\n        \"price\": 90,\n        \"active\": true\n    },\n    {\n        \"id\": 6,\n        \"description\": \"Palitos salados 500g\",\n        \"code\": \"123461\",\n        \"stock\": 50,\n        \"price\": 30.15,\n        \"active\": true\n    },\n    {\n        \"id\": 7,\n        \"description\": \"Dulce de leche 500g\",\n        \"code\": \"123462\",\n        \"stock\": 11,\n        \"price\": 80,\n        \"active\": true\n    },\n    {\n        \"id\": 8,\n        \"description\": \"Manteca 500g\",\n        \"code\": \"123463\",\n        \"stock\": 15,\n        \"price\": 60,\n        \"active\": true\n    },\n    {\n        \"id\": 9,\n        \"description\": \"Dulce de membrillo 1k\",\n        \"code\": \"123464\",\n        \"stock\": 13,\n        \"price\": 75,\n        \"active\": true\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/client/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"client",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Invoice",
+					"item": [
+						{
+							"name": "post",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"total\": 1000,\r\n\t\"clientId\":{\r\n\t\t\"id\":1\r\n\t}\t\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/invoice/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"invoice",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "post",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"createdAt\": \"2023-03-30\",\r\n    \"total\": 301.5,\r\n    \"clientId\": {\r\n        \"id\": 1,\r\n        \"name\": \"Juan\",\r\n        \"lastName\": \"Perez\",\r\n        \"docNumber\": \"1234567890\",\r\n        \"active\": true\r\n    },\r\n    \"invoiceDetails\": [\r\n        {\r\n            \"id\": 1,\r\n            \"amoun\": 1,\r\n            \"productId\": {\r\n                \"id\": 1\r\n                \r\n            }\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"amoun\": 2,\r\n            \"productId\": {\r\n                \"id\": 2\r\n                \r\n            }\r\n        },\r\n        {\r\n            \"id\": 3,\r\n            \"amoun\": 3,\r\n            \"productId\": {\r\n                \"id\": 3\r\n                \r\n            }\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "/invoice/",
+											"path": [
+												"invoice",
+												""
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 31 Mar 2023 02:44:17 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 2,\n    \"createdAt\": \"2023-03-30\",\n    \"total\": 301.5,\n    \"clientId\": {\n        \"id\": 1,\n        \"name\": \"Juan\",\n        \"lastName\": \"Perez\",\n        \"docNumber\": \"1234567890\",\n        \"active\": true\n    },\n    \"invoiceDetails\": [\n        {\n            \"id\": 1,\n            \"amoun\": 1,\n            \"productId\": {\n                \"id\": 1,\n                \"description\": \"Gaseosa cola 1lt\",\n                \"code\": \"123456\",\n                \"stock\": 10,\n                \"price\": 100,\n                \"active\": true\n            }\n        },\n        {\n            \"id\": 2,\n            \"amoun\": 2,\n            \"productId\": {\n                \"id\": 2,\n                \"description\": \"Gaseosa lima 1lt\",\n                \"code\": \"123457\",\n                \"stock\": 15,\n                \"price\": 115,\n                \"active\": true\n            }\n        },\n        {\n            \"id\": 3,\n            \"amoun\": 3,\n            \"productId\": {\n                \"id\": 3,\n                \"description\": \"Gaseosa pomelo 1lt\",\n                \"code\": \"123458\",\n                \"stock\": 20,\n                \"price\": 100.5,\n                \"active\": true\n            }\n        }\n    ]\n}"
+								},
+								{
+									"name": "postNoStock",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"createdAt\": \"2023-03-30\",\r\n    \"total\": 301.5,\r\n    \"clientId\": {\r\n        \"id\": 1,\r\n        \"name\": \"Juan\",\r\n        \"lastName\": \"Perez\",\r\n        \"docNumber\": \"1234567890\",\r\n        \"active\": true\r\n    },\r\n    \"invoiceDetails\": [\r\n        {\r\n            \"id\": 1,\r\n            \"amoun\": 1,\r\n            \"productId\": {\r\n                \"id\": 1\r\n                \r\n            }\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"amoun\": 2,\r\n            \"productId\": {\r\n                \"id\": 2\r\n                \r\n            }\r\n        },\r\n        {\r\n            \"id\": 3,\r\n            \"amoun\": 9999999,\r\n            \"productId\": {\r\n                \"id\": 3\r\n                \r\n            }\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/invoice/",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"invoice",
+												""
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain;charset=UTF-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "55"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 31 Mar 2023 02:44:56 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "No hay suficiente stock del producto Gaseosa pomelo 1lt"
+								}
+							]
+						},
+						{
+							"name": "findById",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "findById",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "/invoice/1",
+											"path": [
+												"invoice",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 31 Mar 2023 01:54:07 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 1,\n    \"createdAt\": \"2023-03-30\",\n    \"total\": 301.5,\n    \"clientId\": {\n        \"id\": 1,\n        \"name\": \"Juan\",\n        \"lastName\": \"Perez\",\n        \"docNumber\": \"1234567890\",\n        \"active\": true\n    },\n    \"invoiceDetails\": [\n        {\n            \"id\": 1,\n            \"amoun\": 1,\n            \"productId\": {\n                \"id\": 1,\n                \"description\": \"Gaseosa cola 1lt\",\n                \"code\": \"123456\",\n                \"stock\": 10,\n                \"price\": 100,\n                \"active\": true\n            }\n        },\n        {\n            \"id\": 2,\n            \"amoun\": 2,\n            \"productId\": {\n                \"id\": 2,\n                \"description\": \"Gaseosa lima 1lt\",\n                \"code\": \"123457\",\n                \"stock\": 15,\n                \"price\": 115,\n                \"active\": true\n            }\n        },\n        {\n            \"id\": 3,\n            \"amoun\": 3,\n            \"productId\": {\n                \"id\": 3,\n                \"description\": \"Gaseosa pomelo 1lt\",\n                \"code\": \"123458\",\n                \"stock\": 20,\n                \"price\": 100.5,\n                \"active\": true\n            }\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "findAll",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "findAll",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "/invoice/",
+											"path": [
+												"invoice",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 31 Mar 2023 02:34:34 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": 1,\n        \"createdAt\": \"2023-03-30\",\n        \"total\": 301.5,\n        \"clientId\": {\n            \"id\": 1,\n            \"name\": \"Juan\",\n            \"lastName\": \"Perez\",\n            \"docNumber\": \"1234567890\",\n            \"active\": true\n        },\n        \"invoiceDetails\": [\n            {\n                \"id\": 1,\n                \"amoun\": 1,\n                \"productId\": {\n                    \"id\": 1,\n                    \"description\": \"Gaseosa cola 1lt\",\n                    \"code\": \"123456\",\n                    \"stock\": 10,\n                    \"price\": 100,\n                    \"active\": true\n                }\n            },\n            {\n                \"id\": 2,\n                \"amoun\": 2,\n                \"productId\": {\n                    \"id\": 2,\n                    \"description\": \"Gaseosa lima 1lt\",\n                    \"code\": \"123457\",\n                    \"stock\": 15,\n                    \"price\": 115,\n                    \"active\": true\n                }\n            },\n            {\n                \"id\": 3,\n                \"amoun\": 3,\n                \"productId\": {\n                    \"id\": 3,\n                    \"description\": \"Gaseosa pomelo 1lt\",\n                    \"code\": \"123458\",\n                    \"stock\": 20,\n                    \"price\": 100.5,\n                    \"active\": true\n                }\n            }\n        ]\n    },\n    {\n        \"id\": 2,\n        \"createdAt\": \"2023-03-30\",\n        \"total\": 301.5,\n        \"clientId\": {\n            \"id\": 1,\n            \"name\": \"Juan\",\n            \"lastName\": \"Perez\",\n            \"docNumber\": \"1234567890\",\n            \"active\": true\n        },\n        \"invoiceDetails\": []\n    }\n]"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

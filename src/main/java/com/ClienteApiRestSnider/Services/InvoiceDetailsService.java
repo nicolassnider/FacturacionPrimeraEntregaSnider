@@ -29,7 +29,7 @@ public class InvoiceDetailsService{
 		Optional<InvoiceDetailsModel> entityOp = this.repository.findById(id);
 
 		InvoiceDetailsModel entityDB = entityOp.get();
-		entityDB.setInvoiceId(model.getInvoiceId());
+		entityDB.setInvoice(model.getInvoice());
 		entityDB.setAmoun(model.getAmoun());
 		entityDB.setProductId(model.getProductId());
 		log.info("Entidad actualizada : " + entityDB);

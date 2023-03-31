@@ -1,8 +1,6 @@
 package com.ClienteApiRestSnider.Controllers;
 
 import com.ClienteApiRestSnider.Entities.ProductModel;
-import com.ClienteApiRestSnider.Exceptions.EntityAlreadyExistsException;
-import com.ClienteApiRestSnider.Exceptions.EntityNotFoundException;
 import com.ClienteApiRestSnider.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,34 +13,44 @@ public class ProductController{
 	@Autowired
 	private ProductService service;
 
-	@PostMapping(path = "/") // postea un nuevo producto
-	public ResponseEntity create(@RequestBody ProductModel product) throws EntityAlreadyExistsException {
-		return new ResponseEntity<>(this.service.create(product), HttpStatus.CREATED);
+	@PostMapping(path = "/")
+	public ResponseEntity<Object> create(@RequestBody ProductModel model) throws Exception {
+		var createdEntity = this.service.create(model);
+		if (createdEntity == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Object>(createdEntity, HttpStatus.CREATED);
 	}
 
-	@PutMapping(path = "/{id}") // hace update de producto
-	public ResponseEntity update(@RequestBody ProductModel product, @PathVariable Long id)
-			throws EntityNotFoundException, Exception {
-		return new ResponseEntity<>(this.service.update(product, id), HttpStatus.CREATED);
+	@PutMapping(path = "/{id}")
+	public ResponseEntity update(ProductModel model, Long id) throws Throwable, Exception {
+		var updatedEntity = this.service.update(model, id);
+		if (updatedEntity == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(this.service.update(updatedEntity, id), HttpStatus.CREATED);
 	}
 
-	@DeleteMapping(path = "/{id}") // desactiva un producto
-	public ResponseEntity delete(@PathVariable Long id) throws EntityNotFoundException, Exception {
+	@DeleteMapping(path = "/{id}")
+	public ResponseEntity delete(@PathVariable Long id) throws Exception {
+		var deletedEntity = this.service.delete(id);
+		if (deletedEntity == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(this.service.delete(id), HttpStatus.OK);
 	}
 
-	@GetMapping(path = "/{code}") // obtiene producto por su code
-	public ResponseEntity getByCode(@PathVariable String code) throws EntityNotFoundException, Exception {
-		return new ResponseEntity<>(this.service.findByCode(code), HttpStatus.OK);
+	@GetMapping(path = "/id/{id}")
+	public ResponseEntity findById(@PathVariable Long id) throws Throwable, Exception {
+		var foundEntity = this.service.findById(id);
+		if (foundEntity == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(foundEntity, HttpStatus.OK);
 	}
 
-	@GetMapping(path = "/{id}") // obtiene cliente por su id
-	public ResponseEntity getById(@PathVariable Long id) throws EntityNotFoundException, Exception {
-		return new ResponseEntity<>(this.service.findById(id), HttpStatus.OK);
-	}
-
-	@GetMapping(path = "/") // obtiene todos los clientes
-	public ResponseEntity getAll() throws Exception {
+	@GetMapping(path = "/")
+	public ResponseEntity findAll() {
 		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
 	}
+
+	@GetMapping(path = "/code/{code}")
+	public ResponseEntity getByDocNumber(@PathVariable String code) throws Exception {
+		var foundEntity = this.service.findByCode(code);
+		if (foundEntity == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(foundEntity, HttpStatus.OK);
+	}
+
 }

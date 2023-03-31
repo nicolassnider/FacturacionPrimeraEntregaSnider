@@ -1,6 +1,7 @@
 package com.ClienteApiRestSnider;
 
 import com.ClienteApiRestSnider.Entities.ClientModel;
+import com.ClienteApiRestSnider.Entities.InvoiceDetailsModel;
 import com.ClienteApiRestSnider.Entities.InvoiceModel;
 import com.ClienteApiRestSnider.Entities.ProductModel;
 import com.ClienteApiRestSnider.Repositories.ClientRepository;
@@ -16,6 +17,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootApplication
 public class FacturacionSegundaEntregaSniderApplication implements CommandLineRunner {
@@ -26,7 +28,6 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 	private ProductRepository productRepository;
 	@Autowired
 	private InvoiceRepository invoiceRepository;
-
 	@Autowired
 	private InvoiceDetailsRepository invoiceDetailsRepository;
 
@@ -36,14 +37,14 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 
 	@Override
 	public void run(String... args) throws Exception {
-		if (clientRepository.count() == 0) {
-			CreateClientes();
-			if (invoiceRepository.count() == 0) {
-				CreateInvoices();
-			}
-		}
 		if (productRepository.count() == 0) {
 			CreateProducts();
+		}
+		if (clientRepository.count() == 0) {
+			CreateClientes();
+		}
+		if (invoiceRepository.count() == 0) {
+			CreateInvoices();
 		}
 
 		var clients = clientRepository.findAll();
@@ -60,9 +61,9 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		System.out.println();
 		var invoices = invoiceRepository.findAll();
 		System.out.println("Invoice report: total " + invoices.size() + "\n---------\n ");
-		for (InvoiceModel invoice : invoices) {
+		/*for (InvoiceModel invoice : invoices) {
 			System.out.println(invoice.toString());
-		}
+		}*/
 		System.out.println();
 	}
 
@@ -109,6 +110,7 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		product.setCode("123456");
 		product.setStock(10);
 		product.setPrice(100.00);
+		product.setActive(true);
 		products.add(product);
 
 		ProductModel product2 = new ProductModel();
@@ -116,6 +118,7 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		product2.setCode("123457");
 		product2.setStock(15);
 		product2.setPrice(115.00);
+		product2.setActive(true);
 		products.add(product2);
 
 		ProductModel product3 = new ProductModel();
@@ -123,6 +126,7 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		product3.setCode("123458");
 		product3.setStock(20);
 		product3.setPrice(100.50);
+		product3.setActive(true);
 		products.add(product3);
 
 		ProductModel product4 = new ProductModel();
@@ -130,6 +134,7 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		product4.setCode("123459");
 		product4.setStock(10);
 		product4.setPrice(100.00);
+		product4.setActive(true);
 		products.add(product4);
 
 		ProductModel product5 = new ProductModel();
@@ -137,6 +142,7 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		product5.setCode("123460");
 		product5.setStock(100);
 		product5.setPrice(90.00);
+		product5.setActive(true);
 		products.add(product5);
 
 		ProductModel product6 = new ProductModel();
@@ -144,6 +150,7 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		product6.setCode("123461");
 		product6.setStock(50);
 		product6.setPrice(30.15);
+		product6.setActive(true);
 		products.add(product6);
 
 		ProductModel product7 = new ProductModel();
@@ -151,6 +158,7 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		product7.setCode("123462");
 		product7.setStock(11);
 		product7.setPrice(80.00);
+		product7.setActive(true);
 		products.add(product7);
 
 		ProductModel product8 = new ProductModel();
@@ -158,6 +166,7 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		product8.setCode("123463");
 		product8.setStock(15);
 		product8.setPrice(60.00);
+		product8.setActive(true);
 		products.add(product8);
 
 		ProductModel product9 = new ProductModel();
@@ -165,21 +174,50 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		product9.setCode("123464");
 		product9.setStock(13);
 		product9.setPrice(75.00);
+		product9.setActive(true);
 		products.add(product9);
 
 		Insert(productRepository, products);
 	}
 
 	private void CreateInvoices() {
-		List<InvoiceModel> invoices = new ArrayList<>();
 
+		List<InvoiceModel> invoices = new ArrayList<>();
 		LocalDate date = LocalDate.now();
 
 		InvoiceModel invoice = new InvoiceModel();
-		invoice.setClientId(clientRepository.findById(1L).get());
+		Optional<ClientModel> client = clientRepository.findById(1L);
+		if(client.isEmpty()) {
+			invoice.setClientId(client.get());
+			throw new RuntimeException("Client not found");
+		}
+		invoice.setClientId(client.get());
 		invoice.setCreatedAt(date);
-		invoice.setTotal(100.00);
-		invoices.add(invoice);
+
+		List<InvoiceDetailsModel> invoice1Details = new ArrayList<>();
+		for (int i=1; i<4; i++) {
+			InvoiceDetailsModel invoiceDetails = new InvoiceDetailsModel();
+			invoiceDetails.setInvoice(invoice);
+			invoiceDetails.setAmoun(i);
+			var product = productRepository.findById(Long.valueOf(i));
+			if(product.isEmpty()) {
+				throw new RuntimeException("Product not found");
+			}
+			invoiceDetails.setProductId(product.get());
+			invoice1Details.add(invoiceDetails);
+		}
+		double total = 0;
+		for (InvoiceDetailsModel object : invoice1Details) {
+			total =+ object.getAmoun()*object.getProductId().getPrice();
+
+		}
+		invoice.setTotal(total);
+		var savedInvoice = invoiceRepository.save(invoice);
+		for (InvoiceDetailsModel object : invoice1Details) {
+			object.setInvoice(savedInvoice);
+			invoiceDetailsRepository.save(object);
+		}
+		/*
 
 		InvoiceModel invoice2 = new InvoiceModel();
 		invoice2.setClientId(clientRepository.findById(1L).get());
@@ -206,6 +244,7 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		invoices.add(invoice5);
 
 		Insert(invoiceRepository, invoices);
+		*/
 	}
 
 	private <T> void Insert(JpaRepository repository, List<T> objects) {

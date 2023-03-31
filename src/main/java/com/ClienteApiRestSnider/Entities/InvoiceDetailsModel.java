@@ -1,16 +1,12 @@
 package com.ClienteApiRestSnider.Entities;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -18,19 +14,20 @@ import lombok.Data;
 public class InvoiceDetailsModel{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "invoice_detail_id")
+	@Column(name = "invoice_details_id")
 	private Long id;
-
-	@ManyToOne
-	@JoinColumn(name = "invoice_id")
-	private InvoiceModel InvoiceId;
 
 	@Positive(message = "El precio debe ser mayor a 0")
 	@Column(name="amoun")
 	private int amoun;
 
-	@ManyToOne
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "product_id")
 	private ProductModel ProductId;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "invoice_id")
+	@JsonBackReference
+	private InvoiceModel invoice;
 
 }
