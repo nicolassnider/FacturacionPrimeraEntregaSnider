@@ -5,16 +5,22 @@ import com.ClienteApiRestSnider.Entities.InvoiceModel;
 import com.ClienteApiRestSnider.Entities.ProductModel;
 import com.ClienteApiRestSnider.Exceptions.EntityAlreadyExistsException;
 import com.ClienteApiRestSnider.Exceptions.EntityNotFoundException;
+import com.ClienteApiRestSnider.Helpers.TimeResponse;
 import com.ClienteApiRestSnider.Repositories.ClientRepository;
 import com.ClienteApiRestSnider.Repositories.InvoiceDetailsRepository;
 import com.ClienteApiRestSnider.Repositories.InvoiceRepository;
 import com.ClienteApiRestSnider.Repositories.ProductRepository;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -29,9 +35,23 @@ public class InvoiceService{
 	@Autowired
 	private InvoiceDetailsRepository invoiceDetailsRepository;
 
+
 	public InvoiceModel create(InvoiceModel model) throws Exception {
-		LocalDate date = LocalDate.now();
-		model.setCreatedAt(date);
+
+
+		try {
+			RestTemplate restTemplate = new RestTemplate();
+			Map<String, String> vars = new HashMap<>();
+			vars.put("time", "now");
+			var result = restTemplate.getForObject("http://worldclockapi.com/api/json/utc/{time}", TimeResponse.class, vars);
+			LocalDate date = result.getCurrentDateTime().atStartOfDay().toLocalDate();
+			model.setCreatedAt(date);
+
+		} catch (Exception e) {
+			LocalDate date = LocalDate.now();
+			model.setCreatedAt(date);
+		}
+
 		var client = clientRepository.findById(model.getClientId().getId());
 
 		model.setClientId(client.get());
@@ -40,7 +60,7 @@ public class InvoiceService{
 			var stock = product.get().getStock();
 			var amount = invoiceDetailsModel.getAmoun();
 			if (stock < amount) {
-					throw new RuntimeException("No hay suficiente stock del producto " + product.get().getDescription());
+				throw new RuntimeException("No hay suficiente stock del producto " + product.get().getDescription());
 			}
 			invoiceDetailsModel.setProductId(product.get());
 		});
@@ -48,6 +68,20 @@ public class InvoiceService{
 		savedInvoice.getInvoiceDetails().forEach(invoiceDetailsModel -> {
 			invoiceDetailsModel.setInvoice(savedInvoice);
 			invoiceDetailsRepository.save(invoiceDetailsModel);
+			var product = productRepository.findById(invoiceDetailsModel.getProductId().getId());
+			var stock = product.get().getStock();
+			var amount = invoiceDetailsModel.getAmoun();
+			product.get().setStock(stock - amount);
+			productRepository.save(product.get());
+		});
+
+		model.getInvoiceDetails().forEach(invoiceDetailsModel -> {
+			var product = productRepository.findById(invoiceDetailsModel.getProductId().getId());
+			var stock = product.get().getStock();
+			var amount = invoiceDetailsModel.getAmoun();
+			stock = stock - amount;
+			product.get().setStock(stock);
+			productRepository.save(product.get());
 		});
 
 		return savedInvoice;

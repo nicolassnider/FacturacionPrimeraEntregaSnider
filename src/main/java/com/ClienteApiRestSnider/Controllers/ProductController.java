@@ -2,6 +2,7 @@ package com.ClienteApiRestSnider.Controllers;
 
 import com.ClienteApiRestSnider.Entities.ProductModel;
 import com.ClienteApiRestSnider.Services.ProductService;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class ProductController{
 	}
 
 	@PutMapping(path = "/{id}")
-	public ResponseEntity update(ProductModel model, Long id) throws Throwable, Exception {
+	public ResponseEntity update(@RequestBody ProductModel model, @PathVariable Long id) throws Throwable, Exception {
 		var updatedEntity = this.service.update(model, id);
 		if (updatedEntity == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(this.service.update(updatedEntity, id), HttpStatus.CREATED);

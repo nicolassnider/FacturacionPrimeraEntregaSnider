@@ -21,7 +21,7 @@ public class ClientController {
 	}
 
 	@PutMapping(path = "/{id}")
-	public ResponseEntity update(ClientModel model, Long id) throws Throwable, Exception {
+	public ResponseEntity update(@RequestBody ClientModel model,@PathVariable Long id) throws Throwable, Exception {
 		var updatedEntity = this.service.update(model, id);
 		if (updatedEntity == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(this.service.update(updatedEntity, id), HttpStatus.CREATED);
