@@ -36,7 +36,10 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "/client/id/1",
+											"raw": "{{url}}/client/id/1",
+											"host": [
+												"{{url}}"
+											],
 											"path": [
 												"client",
 												"id",
@@ -1120,6 +1123,141 @@
 									],
 									"cookie": [],
 									"body": "[\n    {\n        \"id\": 1,\n        \"createdAt\": \"2023-03-30\",\n        \"total\": 301.5,\n        \"clientId\": {\n            \"id\": 1,\n            \"name\": \"Juan\",\n            \"lastName\": \"Perez\",\n            \"docNumber\": \"1234567890\",\n            \"active\": true\n        },\n        \"invoiceDetails\": [\n            {\n                \"id\": 1,\n                \"amoun\": 1,\n                \"productId\": {\n                    \"id\": 1,\n                    \"description\": \"Gaseosa cola 1lt\",\n                    \"code\": \"123456\",\n                    \"stock\": 10,\n                    \"price\": 100,\n                    \"active\": true\n                }\n            },\n            {\n                \"id\": 2,\n                \"amoun\": 2,\n                \"productId\": {\n                    \"id\": 2,\n                    \"description\": \"Gaseosa lima 1lt\",\n                    \"code\": \"123457\",\n                    \"stock\": 15,\n                    \"price\": 115,\n                    \"active\": true\n                }\n            },\n            {\n                \"id\": 3,\n                \"amoun\": 3,\n                \"productId\": {\n                    \"id\": 3,\n                    \"description\": \"Gaseosa pomelo 1lt\",\n                    \"code\": \"123458\",\n                    \"stock\": 20,\n                    \"price\": 100.5,\n                    \"active\": true\n                }\n            }\n        ]\n    },\n    {\n        \"id\": 2,\n        \"createdAt\": \"2023-03-30\",\n        \"total\": 301.5,\n        \"clientId\": {\n            \"id\": 1,\n            \"name\": \"Juan\",\n            \"lastName\": \"Perez\",\n            \"docNumber\": \"1234567890\",\n            \"active\": true\n        },\n        \"invoiceDetails\": []\n    }\n]"
+								}
+							]
+						},
+						{
+							"name": "findAllByClientId_Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/invoice/client/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"invoice",
+										"client",
+										"1"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "findAllByClientId_Id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/invoice/client/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"invoice",
+												"client",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 06 Apr 2023 15:12:54 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": 1,\n        \"createdAt\": \"2023-04-07\",\n        \"total\": 400,\n        \"clientId\": {\n            \"id\": 1,\n            \"name\": \"Juan\",\n            \"lastName\": \"Perez\",\n            \"docNumber\": \"1234567890\",\n            \"active\": true\n        },\n        \"invoiceDetails\": [\n            {\n                \"id\": 1,\n                \"amoun\": 1,\n                \"unitPrice\": 100,\n                \"productId\": {\n                    \"id\": 1,\n                    \"description\": \"Gaseosa cola 1lt\",\n                    \"code\": \"123456\",\n                    \"stock\": 10,\n                    \"price\": 100,\n                    \"active\": true\n                }\n            },\n            {\n                \"id\": 2,\n                \"amoun\": 2,\n                \"unitPrice\": 115,\n                \"productId\": {\n                    \"id\": 2,\n                    \"description\": \"Gaseosa lima 1lt\",\n                    \"code\": \"123457\",\n                    \"stock\": 15,\n                    \"price\": 115,\n                    \"active\": true\n                }\n            },\n            {\n                \"id\": 3,\n                \"amoun\": 3,\n                \"unitPrice\": 100.5,\n                \"productId\": {\n                    \"id\": 3,\n                    \"description\": \"Gaseosa pomelo 1lt\",\n                    \"code\": \"123458\",\n                    \"stock\": 20,\n                    \"price\": 100.5,\n                    \"active\": true\n                }\n            },\n            {\n                \"id\": 4,\n                \"amoun\": 4,\n                \"unitPrice\": 100,\n                \"productId\": {\n                    \"id\": 4,\n                    \"description\": \"Gaseosa cola 1lt\",\n                    \"code\": \"123459\",\n                    \"stock\": 10,\n                    \"price\": 100,\n                    \"active\": true\n                }\n            }\n        ]\n    },\n    {\n        \"id\": 2,\n        \"createdAt\": \"2023-04-08\",\n        \"total\": 450,\n        \"clientId\": {\n            \"id\": 1,\n            \"name\": \"Juan\",\n            \"lastName\": \"Perez\",\n            \"docNumber\": \"1234567890\",\n            \"active\": true\n        },\n        \"invoiceDetails\": [\n            {\n                \"id\": 5,\n                \"amoun\": 2,\n                \"unitPrice\": 115,\n                \"productId\": {\n                    \"id\": 2,\n                    \"description\": \"Gaseosa lima 1lt\",\n                    \"code\": \"123457\",\n                    \"stock\": 15,\n                    \"price\": 115,\n                    \"active\": true\n                }\n            },\n            {\n                \"id\": 6,\n                \"amoun\": 3,\n                \"unitPrice\": 100.5,\n                \"productId\": {\n                    \"id\": 3,\n                    \"description\": \"Gaseosa pomelo 1lt\",\n                    \"code\": \"123458\",\n                    \"stock\": 20,\n                    \"price\": 100.5,\n                    \"active\": true\n                }\n            },\n            {\n                \"id\": 7,\n                \"amoun\": 4,\n                \"unitPrice\": 100,\n                \"productId\": {\n                    \"id\": 4,\n                    \"description\": \"Gaseosa cola 1lt\",\n                    \"code\": \"123459\",\n                    \"stock\": 10,\n                    \"price\": 100,\n                    \"active\": true\n                }\n            },\n            {\n                \"id\": 8,\n                \"amoun\": 5,\n                \"unitPrice\": 90,\n                \"productId\": {\n                    \"id\": 5,\n                    \"description\": \"Papas fritas 1kg\",\n                    \"code\": \"123460\",\n                    \"stock\": 100,\n                    \"price\": 90,\n                    \"active\": true\n                }\n            }\n        ]\n    }\n]"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "InvoiceDetails",
+					"item": [
+						{
+							"name": "findAllInvoiceDetailsByInvoiceId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/invoicedetails/invoice/2",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"invoicedetails",
+										"invoice",
+										"2"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "findAllInvoiceDetailsByInvoiceId",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/invoicedetails/invoice/2",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"invoicedetails",
+												"invoice",
+												"2"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 06 Apr 2023 04:41:43 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": 4,\n        \"amoun\": 2,\n        \"unitPrice\": 115,\n        \"productId\": {\n            \"id\": 2,\n            \"description\": \"Gaseosa lima 1lt\",\n            \"code\": \"123457\",\n            \"stock\": 15,\n            \"price\": 115,\n            \"active\": true\n        }\n    },\n    {\n        \"id\": 5,\n        \"amoun\": 3,\n        \"unitPrice\": 100.5,\n        \"productId\": {\n            \"id\": 3,\n            \"description\": \"Gaseosa pomelo 1lt\",\n            \"code\": \"123458\",\n            \"stock\": 20,\n            \"price\": 100.5,\n            \"active\": true\n        }\n    },\n    {\n        \"id\": 6,\n        \"amoun\": 4,\n        \"unitPrice\": 100,\n        \"productId\": {\n            \"id\": 4,\n            \"description\": \"Gaseosa cola 1lt\",\n            \"code\": \"123459\",\n            \"stock\": 10,\n            \"price\": 100,\n            \"active\": true\n        }\n    }\n]"
 								}
 							]
 						}
