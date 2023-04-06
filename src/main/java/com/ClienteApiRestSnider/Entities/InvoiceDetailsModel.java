@@ -30,4 +30,8 @@ public class InvoiceDetailsModel{
 	@JsonBackReference
 	private InvoiceModel invoice;
 
+	@Positive(message = "El precio debe ser mayor a 0")
+	@Column(name = "unit_price")
+	private double unitPrice;
+
 }

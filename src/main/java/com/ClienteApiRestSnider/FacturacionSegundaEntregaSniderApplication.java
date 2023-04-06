@@ -208,6 +208,7 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		}
 		double total = 0;
 		for (InvoiceDetailsModel object : invoice1Details) {
+			object.setUnitPrice(object.getProductId().getPrice());
 			total =+ object.getAmoun()*object.getProductId().getPrice();
 
 		}
@@ -215,6 +216,40 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		var savedInvoice = invoiceRepository.save(invoice);
 		for (InvoiceDetailsModel object : invoice1Details) {
 			object.setInvoice(savedInvoice);
+			invoiceDetailsRepository.save(object);
+		}
+
+		InvoiceModel invoice2 = new InvoiceModel();
+		Optional<ClientModel> client2 = clientRepository.findById(2L);
+		if(client2.isEmpty()) {
+			invoice.setClientId(client2.get());
+			throw new RuntimeException("Client not found");
+		}
+		invoice2.setClientId(client2.get());
+		invoice2.setCreatedAt(date.plusDays(2));
+
+		List<InvoiceDetailsModel> invoice2Details = new ArrayList<>();
+		for (int i=2; i<5; i++) {
+			InvoiceDetailsModel invoiceDetails = new InvoiceDetailsModel();
+			invoiceDetails.setInvoice(invoice2);
+			invoiceDetails.setAmoun(i);
+			var product = productRepository.findById(Long.valueOf(i));
+			if(product.isEmpty()) {
+				throw new RuntimeException("Product not found");
+			}
+			invoiceDetails.setProductId(product.get());
+			invoice2Details.add(invoiceDetails);
+		}
+		double total2 = 0;
+		for (InvoiceDetailsModel object : invoice2Details) {
+			object.setUnitPrice(object.getProductId().getPrice());
+			total =+ object.getAmoun()*object.getProductId().getPrice();
+
+		}
+		invoice2.setTotal(total);
+		var savedInvoice2 = invoiceRepository.save(invoice);
+		for (InvoiceDetailsModel object : invoice2Details) {
+			object.setInvoice(savedInvoice2);
 			invoiceDetailsRepository.save(object);
 		}
 		/*

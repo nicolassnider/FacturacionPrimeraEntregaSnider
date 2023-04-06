@@ -1,7 +1,6 @@
 package com.ClienteApiRestSnider.Services;
 
 import com.ClienteApiRestSnider.Entities.InvoiceDetailsModel;
-import com.ClienteApiRestSnider.Entities.ProductModel;
 import com.ClienteApiRestSnider.Exceptions.EntityAlreadyExistsException;
 import com.ClienteApiRestSnider.Exceptions.EntityNotFoundException;
 import com.ClienteApiRestSnider.Repositories.InvoiceDetailsRepository;
@@ -52,6 +51,10 @@ public class InvoiceDetailsService{
 
 	public List<InvoiceDetailsModel> findAll() {
 		return repository.findAll();
+	}
+
+	public List<InvoiceDetailsModel> findAllByInvoiceId(Long invoiceId) {
+		return repository.findAllByInvoiceId(invoiceId);
 	}
 
 	private void invalidId(Long id) throws Exception {

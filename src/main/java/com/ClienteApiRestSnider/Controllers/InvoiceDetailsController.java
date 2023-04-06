@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "api/invoicedetails")
 public class InvoiceDetailsController {
+
     @Autowired
     private InvoiceDetailsService service;
+    /*
 
     @PostMapping(path = "/")
     public ResponseEntity create(@RequestBody InvoiceDetailsModel model) throws Exception {
@@ -34,11 +36,11 @@ public class InvoiceDetailsController {
     @GetMapping(path = "/{id}")
     public ResponseEntity findById(Long id) throws Throwable, Exception {
         return new ResponseEntity<>(this.service.findById(id), HttpStatus.OK);
-    }
+    }*/
 
-    @GetMapping(path = "/")
-    public ResponseEntity findAll() {
-        return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
+    @GetMapping(path = "/invoice/{invoiceId}")
+    public ResponseEntity findAllByInvoiceId(@PathVariable Long invoiceId) throws Throwable, Exception {
+        return new ResponseEntity<>(this.service.findAllByInvoiceId(invoiceId), HttpStatus.OK);
     }
 
 }

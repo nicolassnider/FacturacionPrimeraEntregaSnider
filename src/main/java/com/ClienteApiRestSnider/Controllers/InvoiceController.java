@@ -19,18 +19,22 @@ public class InvoiceController{
 		return new ResponseEntity<>(this.service.create(model), HttpStatus.CREATED);
 	}
 
-	@PutMapping(path = "/{id}")
+	/*Una factura no debería modificarse*/
+	/*@PutMapping(path = "/{id}")
 	public ResponseEntity update(InvoiceModel model, Long id) throws Throwable, Exception {
+		if(id<=0) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(this.service.update(model, id), HttpStatus.CREATED);
-	}
+	}*/
 
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity delete(@PathVariable Long id) throws Exception {
+		if(id<=0) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(this.service.delete(id), HttpStatus.OK);
 	}
 
 	@GetMapping(path = "/{id}")
 	public ResponseEntity findById(@PathVariable Long id) throws Throwable, Exception {
+		if(id<=0) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(this.service.findById(id), HttpStatus.OK);
 	}
 

@@ -62,6 +62,7 @@ public class InvoiceService{
 			if (stock < amount) {
 				throw new RuntimeException("No hay suficiente stock del producto " + product.get().getDescription());
 			}
+			invoiceDetailsModel.setUnitPrice(product.get().getPrice());
 			invoiceDetailsModel.setProductId(product.get());
 		});
 		var savedInvoice = repository.save(model);

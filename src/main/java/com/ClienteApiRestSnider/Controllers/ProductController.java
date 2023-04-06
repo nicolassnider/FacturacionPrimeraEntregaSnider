@@ -23,6 +23,7 @@ public class ProductController{
 
 	@PutMapping(path = "/{id}")
 	public ResponseEntity update(@RequestBody ProductModel model, @PathVariable Long id) throws Throwable, Exception {
+		if (id <= 0) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		var updatedEntity = this.service.update(model, id);
 		if (updatedEntity == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(this.service.update(updatedEntity, id), HttpStatus.CREATED);
@@ -30,6 +31,7 @@ public class ProductController{
 
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity delete(@PathVariable Long id) throws Exception {
+		if (id <= 0) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		var deletedEntity = this.service.delete(id);
 		if (deletedEntity == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(this.service.delete(id), HttpStatus.OK);
@@ -37,6 +39,7 @@ public class ProductController{
 
 	@GetMapping(path = "/id/{id}")
 	public ResponseEntity findById(@PathVariable Long id) throws Throwable, Exception {
+		if (id <= 0) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		var foundEntity = this.service.findById(id);
 		if (foundEntity == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(foundEntity, HttpStatus.OK);
@@ -49,6 +52,8 @@ public class ProductController{
 
 	@GetMapping(path = "/code/{code}")
 	public ResponseEntity getByDocNumber(@PathVariable String code) throws Exception {
+		if(code.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		if(code.length() != 6) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		var foundEntity = this.service.findByCode(code);
 		if (foundEntity == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(foundEntity, HttpStatus.OK);

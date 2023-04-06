@@ -27,6 +27,7 @@ public class ClientModel {
 	@Size(min = 2, max = 20, message = "El apellido debe tener al menos 5 caracteres y no más de 20")
 	@Column(name = "lastname")
 	private String lastName;
+
 	@Size(min = 8, max = 15, message = "El número de documento debe tener al menos 8 caracteres y no más de 15")
 	@Column(name = "docnumber", unique = true)
 	private String docNumber;

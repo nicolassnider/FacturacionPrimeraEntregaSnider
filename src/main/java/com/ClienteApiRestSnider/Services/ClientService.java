@@ -14,10 +14,11 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class ClientService{
+public class ClientService implements  IService<ClientModel>{
 	@Autowired
 	private ClientRepository repository;
 
+	@Override
 	public ClientModel create(ClientModel model) throws EntityAlreadyExistsException {
 		Optional<ClientModel> modelOp = this.repository.findByDocNumber(model.getDocNumber());
 		entityIsPresent(modelOp);
