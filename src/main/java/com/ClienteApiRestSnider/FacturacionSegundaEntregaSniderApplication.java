@@ -247,7 +247,7 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 
 		}
 		invoice2.setTotal(total);
-		var savedInvoice2 = invoiceRepository.save(invoice);
+		var savedInvoice2 = invoiceRepository.save(invoice2);
 		for (InvoiceDetailsModel object : invoice2Details) {
 			object.setInvoice(savedInvoice2);
 			invoiceDetailsRepository.save(object);
