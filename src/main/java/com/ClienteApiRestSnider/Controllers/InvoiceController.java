@@ -38,6 +38,12 @@ public class InvoiceController{
 		return new ResponseEntity<>(this.service.findById(id), HttpStatus.OK);
 	}
 
+	@GetMapping(path="/client/{clientId}")
+	public ResponseEntity findAllByClientId(@PathVariable Long clientId) throws Throwable, Exception {
+		if(clientId<=0) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(this.service.findAllByClientId(clientId), HttpStatus.OK);
+	}
+
 	@GetMapping(path = "/")
 	public ResponseEntity findAll() {
 		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);

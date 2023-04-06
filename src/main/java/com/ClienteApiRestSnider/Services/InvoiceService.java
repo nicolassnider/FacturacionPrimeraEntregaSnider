@@ -1,5 +1,9 @@
 package com.ClienteApiRestSnider.Services;
 
+import com.ClienteApiRestSnider.DTO.ClientDTO;
+import com.ClienteApiRestSnider.DTO.InvoiceDTO;
+import com.ClienteApiRestSnider.DTO.InvoiceDetailsDTO;
+import com.ClienteApiRestSnider.DTO.ProductDTO;
 import com.ClienteApiRestSnider.Entities.InvoiceModel;
 
 import com.ClienteApiRestSnider.Entities.ProductModel;
@@ -18,10 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -34,9 +35,11 @@ public class InvoiceService{
 	private ClientRepository clientRepository;
 	@Autowired
 	private InvoiceDetailsRepository invoiceDetailsRepository;
+	@Autowired
+	private InvoiceDetailsService invoiceDetailsService;
 
 
-	public InvoiceModel create(InvoiceModel model) throws Exception {
+	public InvoiceDTO create(InvoiceModel model) throws Exception {
 
 
 		try {
@@ -85,10 +88,10 @@ public class InvoiceService{
 			productRepository.save(product.get());
 		});
 
-		return savedInvoice;
+		return setDTO(savedInvoice);
 	}
 
-	public InvoiceModel update(InvoiceModel model, Long id) throws Exception {
+	public InvoiceDTO update(InvoiceModel model, Long id) throws Exception {
 
 		invalidId(id);
 
@@ -101,7 +104,7 @@ public class InvoiceService{
 		entityDB.setCreatedAt(model.getCreatedAt());
 
 		log.info("Entidad actualizada : " + entityDB);
-		return this.repository.save(entityDB);
+		return setDTO(this.repository.save(entityDB));
 	}
 
 	public InvoiceModel delete(Long id) throws Exception {
@@ -109,14 +112,33 @@ public class InvoiceService{
 		return null;
 	}
 
-	public InvoiceModel findById(Long id) throws EntityNotFoundException, Exception {
+	public InvoiceDTO findById(Long id) throws EntityNotFoundException, Exception {
 		Optional<InvoiceModel> entityOp = this.repository.findById(id);
 		entityIsEmpty(entityOp);
-		return entityOp.get();
+		return setDTO(entityOp.get());
 	}
 
-	public List<InvoiceModel> findAll() {
-		return repository.findAll();
+	public List<InvoiceDTO> findAll() {
+		var findAll = repository.findAll();
+		return setListDTO(findAll);
+	}
+
+	public List<InvoiceDTO> findAllByClientId(Long clientId) throws Exception{
+		if(clientId <= 0) {
+			throw new Exception("El id brindado no es valido");
+		}
+		var findAllByClientId = repository.findAllByClientId_Id(clientId);
+		return setListDTO(findAllByClientId);
+	}
+
+	private List<InvoiceDTO> setListDTO(List<InvoiceModel> invoiceModels){
+		List<InvoiceDTO> invoiceDTOS = new ArrayList<>();
+		for (InvoiceModel invoiceModel:invoiceModels) {
+			{
+				invoiceDTOS.add(setDTO(invoiceModel));
+			}
+		}
+		return invoiceDTOS;
 	}
 
 	private void invalidId(Long id) throws Exception {
@@ -124,6 +146,21 @@ public class InvoiceService{
 		if (id <= 0) {
 			throw new Exception("El id brindado no es valido");
 		}
+	}
+
+	private InvoiceDTO setDTO(InvoiceModel invoiceModel){
+		InvoiceDTO invoiceDTO = new InvoiceDTO();
+		invoiceDTO.setId(invoiceModel.getId());
+		invoiceDTO.setTotal(invoiceModel.getTotal());
+		invoiceDTO.setCreatedAt(invoiceModel.getCreatedAt());
+		ClientDTO clientDTO = new ClientDTO();
+		clientDTO.setId(invoiceModel.getClientId().getId());
+		clientDTO.setName(invoiceModel.getClientId().getName());
+		clientDTO.setLastName(invoiceModel.getClientId().getLastName());
+		clientDTO.setDocNumber(invoiceModel.getClientId().getDocNumber());
+		invoiceDTO.setClient(clientDTO);
+		invoiceDTO.setInvoiceDetails(invoiceDetailsService.findAllByInvoiceId(invoiceModel.getId()));
+		return invoiceDTO;
 	}
 
 	private void entityIsEmpty(Optional<InvoiceModel> entityOp) throws EntityNotFoundException {

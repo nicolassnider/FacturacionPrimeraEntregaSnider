@@ -1,5 +1,8 @@
 package com.ClienteApiRestSnider.Services;
 
+import com.ClienteApiRestSnider.DTO.ClientDTO;
+import com.ClienteApiRestSnider.DTO.InvoiceDetailsDTO;
+import com.ClienteApiRestSnider.DTO.ProductDTO;
 import com.ClienteApiRestSnider.Entities.InvoiceDetailsModel;
 import com.ClienteApiRestSnider.Exceptions.EntityAlreadyExistsException;
 import com.ClienteApiRestSnider.Exceptions.EntityNotFoundException;
@@ -8,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,8 +57,24 @@ public class InvoiceDetailsService{
 		return repository.findAll();
 	}
 
-	public List<InvoiceDetailsModel> findAllByInvoiceId(Long invoiceId) {
-		return repository.findAllByInvoiceId(invoiceId);
+	public List<InvoiceDetailsDTO> findAllByInvoiceId(Long invoiceId) {
+		var findAllByInvoiceIdD = repository.findAllByInvoiceId(invoiceId);
+		List<InvoiceDetailsDTO> invoiceDetailsDTOS = new ArrayList<>();
+		for (InvoiceDetailsModel invoiceDetailsModel:findAllByInvoiceIdD
+			 ) {
+			InvoiceDetailsDTO invoiceDetailsDTO = new InvoiceDetailsDTO();
+			invoiceDetailsDTO.setId(invoiceDetailsModel.getId());
+			invoiceDetailsDTO.setAmoun(invoiceDetailsModel.getAmoun());
+			invoiceDetailsDTO.setUnitPrice(invoiceDetailsModel.getUnitPrice());
+			ProductDTO productDTO = new ProductDTO();
+			productDTO.setId(invoiceDetailsModel.getProductId().getId());
+			productDTO.setCode(invoiceDetailsModel.getProductId().getCode());
+			productDTO.setDescription(invoiceDetailsModel.getProductId().getDescription());
+			invoiceDetailsDTO.setProduct(productDTO);
+			invoiceDetailsDTOS.add(invoiceDetailsDTO);
+		}
+		return invoiceDetailsDTOS;
+
 	}
 
 	private void invalidId(Long id) throws Exception {
@@ -72,6 +92,5 @@ public class InvoiceDetailsService{
 		log.info("La entidad fue encontrada");
 	}
 
-	
 
 }

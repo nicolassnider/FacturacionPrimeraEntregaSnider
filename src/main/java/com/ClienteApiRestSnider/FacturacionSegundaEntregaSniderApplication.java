@@ -177,6 +177,39 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		product9.setActive(true);
 		products.add(product9);
 
+		ProductModel product10 = new ProductModel();
+		product10.setDescription("Yerba mate 1kg");
+		product10.setCode("123465");
+		product10.setStock(10);
+		product10.setPrice(150.00);
+		product10.setActive(true);
+		products.add(product10);
+
+		ProductModel product11 = new ProductModel();
+		product11.setDescription("Fideos moño 1kg");
+		product11.setCode("123466");
+		product11.setStock(100);
+		product11.setPrice(80.00);
+		product11.setActive(true);
+		products.add(product11);
+
+		ProductModel product12 = new ProductModel();
+		product12.setDescription("ketchul manhells 500gr");
+		product12.setCode("123467");
+		product12.setStock(50);
+		product12.setPrice(75.00);
+		product12.setActive(true);
+		products.add(product12);
+
+		ProductModel product13 = new ProductModel();
+		product13.setDescription("asado de unicornio 1kg");
+		product13.setCode("123468");
+		product13.setStock(100);
+		product13.setPrice(1025.00);
+		product13.setActive(true);
+		products.add(product13);
+
+
 		Insert(productRepository, products);
 	}
 
@@ -184,8 +217,14 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 
 		List<InvoiceModel> invoices = new ArrayList<>();
 		LocalDate date = LocalDate.now();
+		SaveInvoice(1L,1, date);
+		SaveInvoice(1L,2, date);
+		SaveInvoice(2L,3, date);
+		SaveInvoice(2L,3, date);
+		SaveInvoice(2L,3, date);
+		SaveInvoice(3L,4, date);
 
-		InvoiceModel invoice = new InvoiceModel();
+		/*InvoiceModel invoice = new InvoiceModel();
 		Optional<ClientModel> client = clientRepository.findById(1L);
 		if(client.isEmpty()) {
 			invoice.setClientId(client.get());
@@ -251,35 +290,46 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		for (InvoiceDetailsModel object : invoice2Details) {
 			object.setInvoice(savedInvoice2);
 			invoiceDetailsRepository.save(object);
+		}*/
+
+	}
+
+	private void SaveInvoice(long i,int j, LocalDate date){
+		InvoiceModel invoice = new InvoiceModel();
+		Optional<ClientModel> client = clientRepository.findById(i);
+		if(client.isEmpty()) {
+			invoice.setClientId(client.get());
+			throw new RuntimeException("Client not found");
 		}
-		/*
+		invoice.setClientId(client.get());
+		invoice.setCreatedAt(date.plusDays(j));
 
-		InvoiceModel invoice2 = new InvoiceModel();
-		invoice2.setClientId(clientRepository.findById(1L).get());
-		invoice2.setCreatedAt(date);
-		invoice2.setTotal(200.00);
-		invoices.add(invoice2);
+		List<InvoiceDetailsModel> invoice1Details = new ArrayList<>();
+		int k = j+4;
+		while (j<k) {
+			InvoiceDetailsModel invoiceDetails = new InvoiceDetailsModel();
+			invoiceDetails.setInvoice(invoice);
+			invoiceDetails.setAmoun(j);
+			var product = productRepository.findById(Long.valueOf(j));
+			if(product.isEmpty()) {
+				throw new RuntimeException("Product not found");
+			}
+			invoiceDetails.setProductId(product.get());
+			invoice1Details.add(invoiceDetails);
+			j++;
+		}
+		double total = 0;
+		for (InvoiceDetailsModel object : invoice1Details) {
+			object.setUnitPrice(object.getProductId().getPrice());
+			total =+ object.getAmoun()*object.getProductId().getPrice();
 
-		InvoiceModel invoice3 = new InvoiceModel();
-		invoice3.setClientId(clientRepository.findById(2L).get());
-		invoice3.setCreatedAt(date);
-		invoice3.setTotal(300.00);
-		invoices.add(invoice3);
-
-		InvoiceModel invoice4 = new InvoiceModel();
-		invoice4.setClientId(clientRepository.findById(2L).get());
-		invoice4.setCreatedAt(date);
-		invoice4.setTotal(400.00);
-		invoices.add(invoice4);
-
-		InvoiceModel invoice5 = new InvoiceModel();
-		invoice5.setClientId(clientRepository.findById(3L).get());
-		invoice5.setCreatedAt(date);
-		invoice5.setTotal(500.00);
-		invoices.add(invoice5);
-
-		Insert(invoiceRepository, invoices);
-		*/
+		}
+		invoice.setTotal(total);
+		var savedInvoice = invoiceRepository.save(invoice);
+		for (InvoiceDetailsModel object : invoice1Details) {
+			object.setInvoice(savedInvoice);
+			invoiceDetailsRepository.save(object);
+		}
 	}
 
 	private <T> void Insert(JpaRepository repository, List<T> objects) {

@@ -27,7 +27,7 @@ public class InvoiceModel {
 
 	@ManyToOne
 	@JoinColumn(name = "client_id")
-	private ClientModel ClientId;
+	private ClientModel clientId;
 
 	@OneToMany(mappedBy = "invoice", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private List<InvoiceDetailsModel> InvoiceDetails = new ArrayList<>();
