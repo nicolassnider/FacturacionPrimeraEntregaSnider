@@ -1,5 +1,7 @@
 package com.ClienteApiRestSnider;
 
+import com.ClienteApiRestSnider.DTO.ClientDTO;
+import com.ClienteApiRestSnider.DTO.GenericModelMapper;
 import com.ClienteApiRestSnider.Entities.ClientModel;
 import com.ClienteApiRestSnider.Entities.InvoiceDetailsModel;
 import com.ClienteApiRestSnider.Entities.InvoiceModel;
@@ -8,6 +10,7 @@ import com.ClienteApiRestSnider.Repositories.ClientRepository;
 import com.ClienteApiRestSnider.Repositories.InvoiceDetailsRepository;
 import com.ClienteApiRestSnider.Repositories.InvoiceRepository;
 import com.ClienteApiRestSnider.Repositories.ProductRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -37,12 +40,15 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 
 	@Override
 	public void run(String... args) throws Exception {
+
+
 		if (productRepository.count() == 0) {
 			CreateProducts();
 		}
 		if (clientRepository.count() == 0) {
 			CreateClientes();
 		}
+
 		if (invoiceRepository.count() == 0) {
 			CreateInvoices();
 		}
@@ -61,7 +67,7 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		System.out.println();
 		var invoices = invoiceRepository.findAll();
 		System.out.println("Invoice report: total " + invoices.size() + "\n---------\n ");
-		/*for (InvoiceModel invoice : invoices) {
+        /*for (InvoiceModel invoice : invoices) {
 			System.out.println(invoice.toString());
 		}*/
 		System.out.println();
@@ -224,7 +230,7 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		SaveInvoice(2L,3, date);
 		SaveInvoice(3L,4, date);
 
-		/*InvoiceModel invoice = new InvoiceModel();
+        /*InvoiceModel invoice = new InvoiceModel();
 		Optional<ClientModel> client = clientRepository.findById(1L);
 		if(client.isEmpty()) {
 			invoice.setClientId(client.get());

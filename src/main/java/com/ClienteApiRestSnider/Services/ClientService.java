@@ -1,5 +1,7 @@
 package com.ClienteApiRestSnider.Services;
 
+import com.ClienteApiRestSnider.DTO.ClientDTO;
+import com.ClienteApiRestSnider.DTO.GenericModelMapper;
 import com.ClienteApiRestSnider.Entities.ClientModel;
 import com.ClienteApiRestSnider.Exceptions.EntityAlreadyExistsException;
 import com.ClienteApiRestSnider.Exceptions.EntityNotFoundException;
@@ -9,16 +11,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 @Service
-public class ClientService implements  IService<ClientModel>{
+public class ClientService{
 	@Autowired
 	private ClientRepository repository;
 
-	@Override
 	public ClientModel create(ClientModel model) throws EntityAlreadyExistsException {
 		Optional<ClientModel> modelOp = this.repository.findByDocNumber(model.getDocNumber());
 		entityIsPresent(modelOp);
@@ -47,22 +49,21 @@ public class ClientService implements  IService<ClientModel>{
 		return this.repository.save(entityDB);
 	}
 
-	public ClientModel findById(Long id) throws EntityNotFoundException, Exception {
+	public ClientDTO findById(Long id) throws EntityNotFoundException, Exception {
 		Optional<ClientModel> entityOp = this.repository.findById(id);
 		entityIsEmpty(entityOp);
-		log.info("La entidad fue encontrada");
-		return entityOp.get();
+		return mapToDTO(entityOp.get());
 	}
 
-	public ClientModel findByDocNumber(String docNumber) throws EntityNotFoundException {
+	public ClientDTO findByDocNumber(String docNumber) throws EntityNotFoundException {
 		Optional<ClientModel> entityOp = this.repository.findByDocNumber(docNumber);
 		entityIsEmpty(entityOp);
-		log.info("La entidad fue encontrada");
-		return entityOp.get();
+		return mapToDTO(entityOp.get());
 	}
 
-	public List<ClientModel> findAll() {
-		return repository.findAll();
+	public List<ClientDTO> findAll() {
+		var findAll = this.repository.findAll();
+		return mapToDTOList(findAll);
 	}
 
 	private void invalidId(Long id) throws Exception {
@@ -72,7 +73,7 @@ public class ClientService implements  IService<ClientModel>{
 		}
 	}
 
-	public void entityIsEmpty(Optional<ClientModel> entityOp) throws EntityNotFoundException {
+	private void entityIsEmpty(Optional<ClientModel> entityOp) throws EntityNotFoundException {
 		if (entityOp.isEmpty()) {
 			log.info("La entidad que intenta buscar no existe en la base de datos : ");
 			throw new EntityNotFoundException("La entidad que intenta modificar no existe en la base de datos");
@@ -80,12 +81,33 @@ public class ClientService implements  IService<ClientModel>{
 		log.info("La entidad fue encontrada");
 	}
 
-	public void entityIsPresent(Optional<ClientModel> entityOp) throws EntityAlreadyExistsException {
+	private void entityIsPresent(Optional<ClientModel> entityOp) throws EntityAlreadyExistsException {
 		if (entityOp.isPresent()) {
 			log.info("La entidad que intenta buscar ya existe en la base de datos : ");
 			throw new EntityAlreadyExistsException("La entidad que intenta agregar ya existe en la base de datos");
 		}
 		log.info("La entidad no se encontró");
+	}
+
+	private ClientDTO mapToDTO(ClientModel entity){
+		ClientDTO dto = new ClientDTO();
+		dto = GenericModelMapper.singleInstance().mapToClientDTO(entity);
+		return dto;
+	}
+
+	private ClientModel mapToEntity(ClientDTO dto){
+		ClientModel entity = new ClientModel();
+		entity = GenericModelMapper.singleInstance().mapToClientModel(dto);
+		return entity;
+	}
+
+	private List<ClientDTO> mapToDTOList(List<ClientModel> entityList){
+		List<ClientDTO> dtoList = new ArrayList<>();
+		for(ClientModel entity : entityList){
+			var dto = mapToDTO(entity);
+			dtoList.add(dto);
+		}
+		return dtoList;
 	}
 
 }

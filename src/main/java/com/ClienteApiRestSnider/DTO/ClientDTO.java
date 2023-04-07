@@ -3,7 +3,7 @@ package com.ClienteApiRestSnider.DTO;
 import lombok.Data;
 
 @Data
-public class ClientDTO {
+public class ClientDTO{
     private Long id;
     private String name;
     private String lastName;
