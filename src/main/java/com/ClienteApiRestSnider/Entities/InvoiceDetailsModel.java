@@ -1,24 +1,21 @@
 package com.ClienteApiRestSnider.Entities;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 @Entity
 @Table(name = "invoice_details")
-public class InvoiceDetailsModel{
+public class InvoiceDetailsModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "invoice_details_id")
 	private Long id;
 
 	@Positive(message = "El precio debe ser mayor a 0")
-	@Column(name="amoun")
+	@Column(name = "amoun")
 	private int amoun;
 
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)

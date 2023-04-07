@@ -7,9 +7,9 @@ import java.util.List;
 
 @Data
 public class InvoiceDTO {
-    private Long id;
-    private LocalDate createdAt;
-    private double total;
-    private ClientDTO client;
-    private List<InvoiceDetailsDTO> invoiceDetails;
-    }
+	private Long id;
+	private LocalDate createdAt;
+	private double total;
+	private ClientDTO client;
+	private List<InvoiceDetailsDTO> invoiceDetails;
+}
