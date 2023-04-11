@@ -30,12 +30,12 @@ public class InvoiceController {
 	 * }
 	 */
 
-	@DeleteMapping(path = "/{id}")
+	/*@DeleteMapping(path = "/{id}")
 	public ResponseEntity<Object> delete(@PathVariable Long id) throws Exception {
 		if (id <= 0)
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<>(this.service.delete(id), HttpStatus.OK);
-	}
+	}*/
 
 	@GetMapping(path = "/{id}")
 	public ResponseEntity<Object> findById(@PathVariable Long id) throws Throwable, Exception {

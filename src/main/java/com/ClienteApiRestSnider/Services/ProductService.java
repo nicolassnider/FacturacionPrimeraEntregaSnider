@@ -3,20 +3,25 @@ package com.ClienteApiRestSnider.Services;
 import com.ClienteApiRestSnider.Entities.ProductModel;
 import com.ClienteApiRestSnider.Exceptions.EntityAlreadyExistsException;
 import com.ClienteApiRestSnider.Exceptions.EntityNotFoundException;
+import com.ClienteApiRestSnider.Helpers.BestSeller;
+import com.ClienteApiRestSnider.Repositories.InvoiceDetailsRepository;
 import com.ClienteApiRestSnider.Repositories.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @Service
 public class ProductService{
+	/*Variables repositorio*/
 	@Autowired
 	private ProductRepository repository;
+	@Autowired
+	private InvoiceDetailsRepository invoiceDetailsRepository;
 
+	/*métodos crud*/
 	public ProductModel create(ProductModel model) throws EntityAlreadyExistsException {
 		Optional<ProductModel> modelOp = this.repository.findByCode(model.getCode());
 		entityIsPresent(modelOp);
@@ -64,6 +69,36 @@ public class ProductService{
 	public List<ProductModel> findAll() {
 		return repository.findAll();
 	}
+
+
+	public List<BestSeller> listBestSeller() {
+		var invoiceDetailsList = invoiceDetailsRepository.findAll();
+		var productList = repository.findAll();
+		List<BestSeller> listBestSeller= new ArrayList<>();
+
+		/*recorrer la lista de invoiceDetailsList
+
+		 */
+		for (var invoiceDetails: invoiceDetailsList) {
+			var productCode = invoiceDetails.getProductId().getCode();
+			/*encontrar code en listBestSeller*/
+			var bestSeller = listBestSeller.stream().filter(x -> x.getCode().equals(productCode)).findFirst();
+			if (bestSeller.isPresent()){
+				bestSeller.get().setQuantity(bestSeller.get().getQuantity() + invoiceDetails.getAmoun());
+			}else {
+				var product = productList.stream().filter(x -> x.getCode().equals(productCode)).findFirst();
+				product.ifPresent(productModel -> listBestSeller.add(new BestSeller(productModel.getCode(), productModel.getDescription(), invoiceDetails.getAmoun())));
+			}
+		}
+
+		/*order list by quantity*/
+		listBestSeller.sort(Comparator.comparing(BestSeller::getQuantity).reversed());
+
+		return listBestSeller;
+	}
+
+	/*métodos privados*/
+
 
 	private void invalidId(Long id) throws Exception {
 		log.info("ID INGRESANDO : " + id);

@@ -27,6 +27,7 @@ import java.util.*;
 @Slf4j
 @Service
 public class InvoiceService{
+	/*Variables repositorio*/
 	@Autowired
 	private InvoiceRepository repository;
 	@Autowired
@@ -38,7 +39,7 @@ public class InvoiceService{
 	@Autowired
 	private InvoiceDetailsService invoiceDetailsService;
 
-
+	/*métodos crud*/
 	public InvoiceDTO create(InvoiceModel model) throws Exception {
 
 
@@ -91,7 +92,7 @@ public class InvoiceService{
 		return setDTO(savedInvoice);
 	}
 
-	public InvoiceDTO update(InvoiceModel model, Long id) throws Exception {
+	/*public InvoiceDTO update(InvoiceModel model, Long id) throws Exception {
 
 		invalidId(id);
 
@@ -105,12 +106,12 @@ public class InvoiceService{
 
 		log.info("Entidad actualizada : " + entityDB);
 		return setDTO(this.repository.save(entityDB));
-	}
+	}*/
 
-	public InvoiceModel delete(Long id) throws Exception {
+	/*public InvoiceModel delete(Long id) throws Exception {
 		// return not implemented exception
 		return null;
-	}
+	}*/
 
 	public InvoiceDTO findById(Long id) throws EntityNotFoundException, Exception {
 		Optional<InvoiceModel> entityOp = this.repository.findById(id);
@@ -141,6 +142,7 @@ public class InvoiceService{
 		return invoiceDTOS;
 	}
 
+	/*métodos privados*/
 	private void invalidId(Long id) throws Exception {
 		log.info("ID INGRESANDO : " + id);
 		if (id <= 0) {

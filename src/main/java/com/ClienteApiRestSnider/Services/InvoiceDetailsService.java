@@ -18,9 +18,11 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class InvoiceDetailsService{
+	/*Variables repositorio*/
 	@Autowired
 	private InvoiceDetailsRepository repository;
 
+	/*métodos crud*/
 	public InvoiceDetailsModel create(InvoiceDetailsModel model) throws EntityAlreadyExistsException {
 		return this.repository.save(model);
 	}
@@ -49,10 +51,6 @@ public class InvoiceDetailsService{
 		return entityOp.get();
 	}
 
-	public InvoiceDetailsModel findByCode(String code) throws EntityNotFoundException {
-		return new InvoiceDetailsModel();
-	}
-
 	public List<InvoiceDetailsModel> findAll() {
 		return repository.findAll();
 	}
@@ -76,6 +74,8 @@ public class InvoiceDetailsService{
 		return invoiceDetailsDTOS;
 
 	}
+
+	/*métodos privados*/
 
 	private void invalidId(Long id) throws Exception {
 		log.info("ID INGRESANDO : " + id);

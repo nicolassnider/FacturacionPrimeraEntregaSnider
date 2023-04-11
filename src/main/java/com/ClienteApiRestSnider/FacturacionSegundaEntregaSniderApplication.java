@@ -327,7 +327,7 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		double total = 0;
 		for (InvoiceDetailsModel object : invoice1Details) {
 			object.setUnitPrice(object.getProductId().getPrice());
-			total =+ object.getAmoun()*object.getProductId().getPrice();
+			total += object.getAmoun()*object.getProductId().getPrice();
 
 		}
 		invoice.setTotal(total);

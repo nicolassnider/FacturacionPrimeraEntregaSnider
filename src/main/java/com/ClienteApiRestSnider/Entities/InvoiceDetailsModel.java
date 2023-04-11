@@ -20,7 +20,7 @@ public class InvoiceDetailsModel {
 
 	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "product_id")
-	private ProductModel ProductId;
+	private ProductModel productId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "invoice_id")

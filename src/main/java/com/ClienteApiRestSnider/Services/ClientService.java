@@ -18,8 +18,11 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class ClientService{
+	/*Variables repositorio*/
 	@Autowired
 	private ClientRepository repository;
+
+	/*métodos crud*/
 
 	public ClientModel create(ClientModel model) throws EntityAlreadyExistsException {
 		Optional<ClientModel> modelOp = this.repository.findByDocNumber(model.getDocNumber());
@@ -65,6 +68,8 @@ public class ClientService{
 		var findAll = this.repository.findAll();
 		return mapToDTOList(findAll);
 	}
+
+	/*métodos privados*/
 
 	private void invalidId(Long id) throws Exception {
 		log.info("ID INGRESANDO : " + id);

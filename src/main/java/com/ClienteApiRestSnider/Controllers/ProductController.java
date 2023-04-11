@@ -58,6 +58,11 @@ public class ProductController {
 		return new ResponseEntity<>(this.service.findAll(), HttpStatus.OK);
 	}
 
+	@GetMapping(path = "/bestseller")
+	public ResponseEntity<Object> listBestSeller() {
+		return new ResponseEntity<>(this.service.listBestSeller(), HttpStatus.OK);
+	}
+
 	@GetMapping(path = "/code/{code}")
 	public ResponseEntity<Object> getByDocNumber(@PathVariable String code) throws Exception {
 		if (code.isEmpty())

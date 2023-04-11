@@ -74,6 +74,92 @@
 									],
 									"cookie": [],
 									"body": "{\n    \"id\": 1,\n    \"name\": \"Juan\",\n    \"lastName\": \"Perez\",\n    \"docNumber\": \"1234567890\",\n    \"active\": true\n}"
+								},
+								{
+									"name": "findByIdNotFound",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/client/id/9999",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"client",
+												"id",
+												"9999"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain;charset=UTF-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "62"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 06 Apr 2023 20:37:04 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "La entidad que intenta modificar no existe en la base de datos"
+								},
+								{
+									"name": "findByIdBadId",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/client/id/a",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"client",
+												"id",
+												"a"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain;charset=UTF-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "107"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 06 Apr 2023 20:37:32 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: \"a\""
 								}
 							]
 						},
@@ -152,6 +238,55 @@
 									],
 									"cookie": [],
 									"body": "{\n    \"id\": 7,\n    \"name\": \"nombre\",\n    \"lastName\": \"lastname\",\n    \"docNumber\": \"999999997\",\n    \"active\": true\n}"
+								},
+								{
+									"name": "postBadDocNumber",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n\r\n\t\"name\":\"nombre\",\r\n    \"lastName\":\"lastname\",\r\n    \"docNumber\":\"9999999979999999\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url}}/client/",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"client",
+												""
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain;charset=UTF-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "484"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 06 Apr 2023 20:39:21 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "Validation failed for classes [com.ClienteApiRestSnider.Entities.ClientModel] during persist time for groups [jakarta.validation.groups.Default, ]\nList of constraint violations:[\n\tConstraintViolationImpl{interpolatedMessage='El número de documento debe tener al menos 8 caracteres y no más de 15', propertyPath=docNumber, rootBeanClass=class com.ClienteApiRestSnider.Entities.ClientModel, messageTemplate='El número de documento debe tener al menos 8 caracteres y no más de 15'}\n]"
 								}
 							]
 						},
@@ -217,6 +352,47 @@
 									],
 									"cookie": [],
 									"body": "{\n    \"id\": 1,\n    \"name\": \"Juan\",\n    \"lastName\": \"Perez\",\n    \"docNumber\": \"1234567890\",\n    \"active\": true\n}"
+								},
+								{
+									"name": "findByDocNumberBadDocNumber",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/client/docnumber/1",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"client",
+												"docnumber",
+												"1"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 06 Apr 2023 21:37:24 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"invalid or null docNumber\"\n}"
 								}
 							]
 						},
@@ -864,6 +1040,69 @@
 									"body": "{\n    \"id\": 1,\n    \"description\": \"Gaseosa limalimonlimoneta 1lt\",\n    \"code\": \"223456\",\n    \"stock\": 10,\n    \"price\": 100,\n    \"active\": true\n}"
 								}
 							]
+						},
+						{
+							"name": "bestSeller",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/product/bestseller",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"product",
+										"bestseller"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "bestSeller",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url}}/product/bestseller",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"product",
+												"bestseller"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 11 Apr 2023 03:34:09 GMT"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=60"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"code\": \"123460\",\n        \"description\": \"Papas fritas 1kg\",\n        \"quantity\": 25\n    },\n    {\n        \"code\": \"123459\",\n        \"description\": \"Gaseosa cola 1lt\",\n        \"quantity\": 24\n    },\n    {\n        \"code\": \"123461\",\n        \"description\": \"Palitos salados 500g\",\n        \"quantity\": 24\n    },\n    {\n        \"code\": \"123458\",\n        \"description\": \"Gaseosa pomelo 1lt\",\n        \"quantity\": 15\n    },\n    {\n        \"code\": \"123462\",\n        \"description\": \"Dulce de leche 500g\",\n        \"quantity\": 7\n    },\n    {\n        \"code\": \"123457\",\n        \"description\": \"Gaseosa lima 1lt\",\n        \"quantity\": 4\n    },\n    {\n        \"code\": \"123456\",\n        \"description\": \"Gaseosa cola 1lt\",\n        \"quantity\": 1\n    }\n]"
+								}
+							]
 						}
 					]
 				},
@@ -877,7 +1116,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"total\": 301.5,\r\n    \"clientId\": {\r\n        \"id\": 1,\r\n        \"name\": \"Juan\",\r\n        \"lastName\": \"Perez\",\r\n        \"docNumber\": \"1234567890\",\r\n        \"active\": true\r\n    },\r\n    \"invoiceDetails\": [\r\n        {\r\n            \"id\": 1,\r\n            \"amoun\": 1,\r\n            \"productId\": {\r\n                \"id\": 1\r\n                \r\n            }\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"amoun\": 2,\r\n            \"productId\": {\r\n                \"id\": 2\r\n                \r\n            }\r\n        },\r\n        {\r\n            \"id\": 3,\r\n            \"amoun\": 9,\r\n            \"productId\": {\r\n                \"id\": 3\r\n                \r\n            }\r\n        }\r\n    ]\r\n}",
+									"raw": "{\r\n    \"clientId\": {\r\n        \"id\": 1,\r\n        \"name\": \"Juan\",\r\n        \"lastName\": \"Perez\",\r\n        \"docNumber\": \"1234567890\",\r\n        \"active\": true\r\n    },\r\n    \"invoiceDetails\": [\r\n        {\r\n            \"id\": 1,\r\n            \"amoun\": 1,\r\n            \"productId\": {\r\n                \"id\": 1\r\n                \r\n            }\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"amoun\": 2,\r\n            \"productId\": {\r\n                \"id\": 2\r\n                \r\n            }\r\n        },\r\n        {\r\n            \"id\": 3,\r\n            \"amoun\": 9,\r\n            \"productId\": {\r\n                \"id\": 3\r\n                \r\n            }\r\n        }\r\n    ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
