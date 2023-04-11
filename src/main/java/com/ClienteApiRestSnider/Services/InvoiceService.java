@@ -92,27 +92,6 @@ public class InvoiceService{
 		return setDTO(savedInvoice);
 	}
 
-	/*public InvoiceDTO update(InvoiceModel model, Long id) throws Exception {
-
-		invalidId(id);
-
-		Optional<InvoiceModel> entityOp = this.repository.findById(id);
-
-		entityIsEmpty(entityOp);
-		InvoiceModel entityDB = entityOp.get();
-		entityDB.setTotal(model.getTotal());
-		entityDB.setClientId(model.getClientId());
-		entityDB.setCreatedAt(model.getCreatedAt());
-
-		log.info("Entidad actualizada : " + entityDB);
-		return setDTO(this.repository.save(entityDB));
-	}*/
-
-	/*public InvoiceModel delete(Long id) throws Exception {
-		// return not implemented exception
-		return null;
-	}*/
-
 	public InvoiceDTO findById(Long id) throws EntityNotFoundException, Exception {
 		Optional<InvoiceModel> entityOp = this.repository.findById(id);
 		entityIsEmpty(entityOp);

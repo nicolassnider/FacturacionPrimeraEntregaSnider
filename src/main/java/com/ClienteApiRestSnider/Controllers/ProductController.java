@@ -2,7 +2,6 @@ package com.ClienteApiRestSnider.Controllers;
 
 import com.ClienteApiRestSnider.Entities.ProductModel;
 import com.ClienteApiRestSnider.Services.ProductService;
-import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
