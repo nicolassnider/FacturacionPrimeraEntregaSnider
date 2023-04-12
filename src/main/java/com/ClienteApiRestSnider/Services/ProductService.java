@@ -70,6 +70,15 @@ public class ProductService{
 		return repository.findAll();
 	}
 
+	public void moveStock(Long id, Integer quantity) throws Exception {
+		invalidId(id);
+		Optional<ProductModel> entityOp = this.repository.findById(id);
+		entityIsEmpty(entityOp);
+		ProductModel entityDB = entityOp.get();
+		entityDB.setStock(entityDB.getStock() + quantity);
+		this.repository.save(entityDB);
+	}
+
 
 	public List<BestSeller> listBestSeller() {
 		var invoiceDetailsList = invoiceDetailsRepository.findAll();

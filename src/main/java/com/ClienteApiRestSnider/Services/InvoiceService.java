@@ -35,9 +35,9 @@ public class InvoiceService{
 	@Autowired
 	private ClientRepository clientRepository;
 	@Autowired
-	private InvoiceDetailsRepository invoiceDetailsRepository;
-	@Autowired
 	private InvoiceDetailsService invoiceDetailsService;
+	@Autowired
+	private ProductService productService;
 
 	/*métodos crud*/
 	public InvoiceDTO create(InvoiceModel model) throws Exception {
@@ -60,33 +60,33 @@ public class InvoiceService{
 
 		model.setClientId(client.get());
 		model.getInvoiceDetails().forEach(invoiceDetailsModel -> {
-			var product = productRepository.findById(invoiceDetailsModel.getProductId().getId());
-			var stock = product.get().getStock();
+			ProductModel product = null;
+			try {
+				product = productService.findById(invoiceDetailsModel.getProductId().getId());
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+			var stock = product.getStock();
 			var amount = invoiceDetailsModel.getAmoun();
 			if (stock < amount) {
-				throw new RuntimeException("No hay suficiente stock del producto " + product.get().getDescription());
+				throw new RuntimeException("No hay suficiente stock del producto " + product.getDescription());
 			}
-			invoiceDetailsModel.setUnitPrice(product.get().getPrice());
-			invoiceDetailsModel.setProductId(product.get());
+			invoiceDetailsModel.setUnitPrice(product.getPrice());
+			invoiceDetailsModel.setProductId(product);
 		});
 		var savedInvoice = repository.save(model);
 		savedInvoice.getInvoiceDetails().forEach(invoiceDetailsModel -> {
 			invoiceDetailsModel.setInvoice(savedInvoice);
-			invoiceDetailsRepository.save(invoiceDetailsModel);
-			var product = productRepository.findById(invoiceDetailsModel.getProductId().getId());
-			var stock = product.get().getStock();
-			var amount = invoiceDetailsModel.getAmoun();
-			product.get().setStock(stock - amount);
-			productRepository.save(product.get());
-		});
-
-		model.getInvoiceDetails().forEach(invoiceDetailsModel -> {
-			var product = productRepository.findById(invoiceDetailsModel.getProductId().getId());
-			var stock = product.get().getStock();
-			var amount = invoiceDetailsModel.getAmoun();
-			stock = stock - amount;
-			product.get().setStock(stock);
-			productRepository.save(product.get());
+			try {
+				invoiceDetailsService.create(invoiceDetailsModel);
+			} catch (EntityAlreadyExistsException e) {
+				throw new RuntimeException(e);
+			}
+			try {
+				productService.moveStock(invoiceDetailsModel.getProductId().getId(), invoiceDetailsModel.getAmoun()*-1);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
 		});
 
 		return setDTO(savedInvoice);
