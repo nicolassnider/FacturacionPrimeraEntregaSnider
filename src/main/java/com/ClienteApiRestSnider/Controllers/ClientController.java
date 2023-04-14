@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 /*Indica que esta clase es un crontroller*/
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*") //permite el acceso a todos los dominios
 /* Ruta de controller */
 @RequestMapping(path = "api/client")
 public class ClientController {
