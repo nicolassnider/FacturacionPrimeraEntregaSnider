@@ -226,8 +226,8 @@ public class FacturacionSegundaEntregaSniderApplication implements CommandLineRu
 		SaveInvoice(1L,1, date);
 		SaveInvoice(1L,2, date);
 		SaveInvoice(2L,3, date);
-		SaveInvoice(2L,3, date);
-		SaveInvoice(2L,3, date);
+		SaveInvoice(2L,2, date);
+		SaveInvoice(2L,1, date);
 		SaveInvoice(3L,4, date);
 
 	}

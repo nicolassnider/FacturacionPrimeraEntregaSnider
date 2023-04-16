@@ -1,35 +1,30 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { Invoice, fetchInvoices } from '../services/fetchData';
+import Card from './InvoiceCard';
 
 interface ModalProps {
 	isOpen: boolean;
 	onClose: () => void;
-	clientId: Number|undefined;
+	clientId: Number | undefined;
 	children: ReactNode;
 }
 
-
-
-export function Modal({ isOpen, onClose, clientId,children }: ModalProps) {
-	const [invoices, setInvoices] = useState<Invoice[]>([])
+export function Modal({ isOpen, onClose, clientId, children }: ModalProps) {
+	const [invoices, setInvoices] = useState<Invoice[]>([]);
 
 	useEffect(() => {
 		async function getData() {
-			console.log('clientId', clientId)
-			if(clientId === undefined) return;
+			console.log('clientId', clientId);
+			if (clientId === undefined) return;
 			const result = await fetchInvoices(clientId);
 			setInvoices(result);
 		}
 		getData();
 	}, [clientId]);
-			
 
-
-	if (!isOpen) 
-	{
+	if (!isOpen) {
 		return null;
 	}
-	
 
 	return (
 		<div className="fixed z-50 inset-0 overflow-y-auto">
@@ -46,14 +41,15 @@ export function Modal({ isOpen, onClose, clientId,children }: ModalProps) {
 					<div className="p-6">{children}</div>
 
 					{invoices.map((invoice: Invoice) => (
-						<div
+						
+						<Card
 							key={invoice.id}
-						>
-							<p>{invoice.total}</p>
-						</div>
+							title={invoice.id}
+							createdAt={invoice.createdAt}
+							total={invoice.total}
+							invoice = {invoice}
+						/>
 					))}
-
-					
 				</div>
 			</div>
 		</div>
