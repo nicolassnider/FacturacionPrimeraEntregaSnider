@@ -2,14 +2,14 @@ import { ReactNode, useEffect, useState } from 'react';
 import { Invoice, fetchInvoices } from '../services/fetchData';
 import Card from './InvoiceCard';
 
-interface ModalProps {
+interface ModalInvoiceProps {
 	isOpen: boolean;
 	onClose: () => void;
 	clientId: Number | undefined;
 	children: ReactNode;
 }
 
-export function Modal({ isOpen, onClose, clientId, children }: ModalProps) {
+export function ModalInvoices({ isOpen, onClose, clientId, children }: ModalInvoiceProps) {
 	const [invoices, setInvoices] = useState<Invoice[]>([]);
 
 	useEffect(() => {
@@ -42,7 +42,7 @@ export function Modal({ isOpen, onClose, clientId, children }: ModalProps) {
 
 					{invoices.map((invoice: Invoice) => (
 						
-						<Card
+						<Card 						
 							key={invoice.id}
 							title={invoice.id}
 							createdAt={invoice.createdAt}

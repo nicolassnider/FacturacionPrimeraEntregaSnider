@@ -1,69 +1,77 @@
-import Image from 'next/image';
-import { Inter } from 'next/font/google';
-import React, { useEffect, useState } from 'react';
-import { Client, fetchClients } from './services/fetchData';
-import { Modal } from './components/Modal';
+/* create index */
+import React from 'react';
+import { GetServerSideProps } from 'next';
 
-const inter = Inter({ subsets: ['latin'] });
+import { fetchClients } from './services/fetchData';
+import { Client } from './services/fetchData';
 
-export default function Home() {
-	const [clients, setClients] = useState<Client[]>([]);
-	const [selectedClient, setSelectedClient] = useState<Client | null>(null);
-	const [isOpen, setIsOpen] = useState(false);
+import { ModalInvoices } from './components/ModalInvoices';
 
-	useEffect(() => {
-		async function getData() {
-			const result = await fetchClients();
-			setClients(result);
-		}
-		getData();
-	}, []);
+import styled from 'styled-components';
+import { Clients } from './components/Clients';
 
-	const handleModalClick = (client: Client) => {
-		console.log('client', client);
-		setSelectedClient(client);
-		setIsOpen(true);
-	};
+const Container = styled.div`
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+	height: 100%;
+	width: 100%;
+`;
 
-	const onClose = () => {
-		setSelectedClient(null);
-		setIsOpen(false);
-	};
+const List = styled.div`
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+	height: 100%;
+	width: 100%;
+`;
+
+interface Props {
+	clients: Client[];
+}
+
+export default function Home({ clients }: Props) {
+	const [isOpen, setIsOpen] = React.useState(false);
+	const [clientId, setClientId] = React.useState<Number | undefined>();
 
 	return (
-		<>
-			<div className="bg-dark-bg min-h-screen flex items-center justify-center">
-				<div className="grid grid-cols-4 gap-4">
-					<Modal
-						clientId={selectedClient}
-						isOpen={isOpen}
-						onClose={onClose}
-						children={undefined}
-					></Modal>
-					<div className="col-span-4">
-						<h1 className="text-3xl font-bold text-neutral-800 dark:text-neutral-50">
-							Welcome to the Dashboard
-						</h1>
-						<p className="text-neutral-600 dark:text-neutral-200">
-							Here you can see the most important information
-						</p>
-					</div>
-					{clients.map((client: Client) => (
-						<div
-							key={client.id}
-							onClick={() => handleModalClick(client.id)}
-							className=" box block mt-1 max-w-[22rem] rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700"
-						>
-							<h5 className="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-								{client.name} {client.lastName}
-							</h5>
-							<p className="mb-4 text-base text-neutral-600 dark:text-neutral-200">
-								{client.docNumber}
-							</p>
-						</div>
-					))}
-				</div>
-			</div>
-		</>
+		<Container>
+			<List>
+				{clients.map((client) => (
+					<Clients
+						key={client.id}
+						title={client.name}
+						email={client.email}
+						onClick={() => {
+							setClientId(client.id);
+							setIsOpen(true);
+						}}
+					></Clients>
+				))}
+			</List>
+			<ModalInvoices
+				isOpen={isOpen}
+				onClose={() => setIsOpen(false)}
+				clientId={clientId}
+			>
+				<h1>Modal</h1>
+			</ModalInvoices>
+		</Container>
 	);
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+	const clients = await fetchClients();
+
+	return {
+		props: {
+			clients,
+		},
+	};
+};
